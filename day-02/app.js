@@ -36,13 +36,21 @@ checkBtn.addEventListener("click", function () {
     message.textContent = `Score: ${score} → Grade: ${grade}`;
 
     historyList.innerHTML = "";
-
     for (const item of history) {
         const li = document.createElement("li");
+
         li.textContent = `Score: ${item.score} → Grade: ${item.grade}`;
+
+        if (item.grade === "A" || item.grade === "B") {
+            li.style.color = "green";
+        } else if (item.grade === "C" || item.grade === "D") {
+            li.style.color = "orange";
+        } else {
+            li.style.color = "red";
+        }
+
         historyList.appendChild(li);
     }
-
     console.log(history);
 });
 

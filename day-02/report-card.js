@@ -1,14 +1,12 @@
-const students = [
-    { name: "Mostafa", score: 95, attendance: 90 },
-    { name: "Ahmed", score: 85, attendance: 88 },
-    { name: "Dina", score: 75, attendance: 80 },
-    { name: "Hadeer", score: 65, attendance: 75 },
-    { name: "Mona", score: 55, attendance: 85 },
-    { name: "Nada", score: 92, attendance: 60 },
-    { name: "Youssef", score: 78, attendance: 68 },
-    { name: "Omar", attendance: 90 }
-];
+const students = process.argv.slice(2).map((student) => {
+    const [name, score, attendance] = student.split(",");
 
+    return {
+        name,
+        score: score === "" ? undefined : Number(score),
+        attendance: attendance === "" ? undefined : Number(attendance)
+    };
+});
 const gradeCounts = {
     A: 0,
     B: 0,
@@ -39,7 +37,11 @@ for (const student of students) {
         skippedCount++;
         continue;
     }
+    const finalScore = student.score * 0.7 + student.attendance * 0.3;
 
+    console.log(
+        `${student.name}: Final score = ${finalScore.toFixed(1)}`
+    );
     let grade;
 
     if (student.score >= 90) {
@@ -81,6 +83,23 @@ for (const student of students) {
 }
 
 const average = totalScore / validStudents;
+let index = 0;
+
+while (index < students.length) {
+    const student = students[index];
+
+    if (
+        student.score !== undefined &&
+        student.score > average
+    ) {
+        console.log(
+            `First score above average: ${student.name} - ${student.score}`
+        );
+        break;
+    }
+
+    index++;
+}
 
 console.log("\n--- Summary ---");
 console.log("A:", gradeCounts.A);
