@@ -112,3 +112,22 @@ console.log("Highest:", highestStudent.name, highestStudent.score);
 console.log("Lowest:", lowestStudent.name, lowestStudent.score);
 console.log("At risk:", atRiskCount);
 console.log("Skipped invalid records:", skippedCount);
+
+for (const grade in gradeCounts) {
+    let stars = "";
+
+    for (let i = 0; i < gradeCounts[grade]; i++) {
+        stars += "*";
+    }
+
+    console.log(`${grade}: ${stars}`);
+}
+for (let i = 1; i <= 9; i++) {
+    let row = "";
+
+    for (let j = 1; j <= 9; j++) {
+        row += `${i * j} `;
+    }
+
+    console.log(row);
+}
