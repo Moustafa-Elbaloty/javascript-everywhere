@@ -127,6 +127,15 @@ console.log(safeUser);
 console.log(safeCopy);
 
 
+// Bonus 1: structuredClone
+
+const clonedUser = structuredClone(user);
+
+clonedUser.profile.city = "Alexandria";
+
+console.log(user);
+console.log(clonedUser);
+
 // 3.6 Rest in functions
 
 function total(...numbers) {
