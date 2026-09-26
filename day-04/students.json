@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "name": "Sara",
+    "score": 92,
+    "attendance": 90,
+    "address": "Cairo"
+  },
+  {
+    "id": 2,
+    "name": "Ahmed",
+    "score": 78,
+    "attendance": 85,
+    "address": "Giza"
+  },
+  {
+    "id": 3,
+    "name": "Mona",
+    "score": 88,
+    "address": "Alexandria"
+  },
+  {
+    "id": 4,
+    "name": "Omar",
+    "score": 45,
+    "attendance": 70
+  },
+  {
+    "id": 5,
+    "name": "Dina",
+    "score": 100,
+    "attendance": 95,
+    "address": "Cairo"
+  },
+  {
+    "id": 6,
+    "name": "Ali",
+    "score": 67,
+    "attendance": 80,
+    "address": "Giza"
+  },
+  {
+    "id": 7,
+    "name": "Youssef",
+    "score": 55,
+    "attendance": 60,
+    "address": "Qena"
+  },
+  {
+    "id": 8,
+    "name": "Nour",
+    "score": 82,
+    "attendance": 88,
+    "address": "Luxor"
+  },
+  {
+    "id": 9,
+    "name": "Khaled",
+    "score": 120,
+    "attendance": 90,
+    "address": "Cairo"
+  },
+  {
+    "id": 10,
+    "name": "Hana",
+    "score": 73,
+    "attendance": 78,
+    "address": "Giza"
+  }
+]
