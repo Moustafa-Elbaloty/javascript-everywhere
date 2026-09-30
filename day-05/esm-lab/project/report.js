@@ -1,4 +1,4 @@
-const PASS_MARK = 60;
+const PASS_MARK = 90;
 import dayjs from "dayjs";
 import {
     isValidScore,
