@@ -15,10 +15,11 @@ My name is Moustafa Ahmed. This repository documents my learning journey through
 7. AI Application
 
 ## Table of Contents
-
-| Session | Topic  
+| Session | Topic |
+|---|---|
 | Day 01 | Dev Environment Setup |
 | Day 02 | JS Fundamentals |
 | Day 03 | Functions, Scope & Hoisting |
 | Day 04 | ES6+ & Async JS — Destructuring, Callbacks & the Event Loop |
 | Day 05 | Promises, Async/Await, Modules + Git |
+| Day 06 | TypeScript, APIs & Task Manager |
