@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header>
+    <h1>Task Manager</h1>
+    <p>Manage your tasks in a simple and accessible way.</p>
+  </header>
+
+  <main>
+    <section aria-labelledby="task-section-title">
+      <h2 id="task-section-title">Create a Task</h2>
+
+      <form>
+        <div>
+          <label for="task-title">Task title</label>
+          <input
+            id="task-title"
+            name="taskTitle"
+            type="text"
+            required
+          >
+        </div>
+
+        <div>
+          <label for="task-category">Category</label>
+          <select id="task-category" name="category">
+            <option value="">Select a category</option>
+            <option value="work">Work</option>
+            <option value="study">Study</option>
+            <option value="personal">Personal</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="task-description">Description</label>
+          <input
+            id="task-description"
+            name="description"
+            type="text"
+          >
+        </div>
+
+        <button type="submit">Add Task</button>
+        <button type="button">Clear Form</button>
+      </form>
+
+      <p id="task-status" role="status">No tasks added yet.</p>
+
+      <p id="form-error" role="alert"></p>
+    </section>
+
+    <section aria-labelledby="task-list-title">
+      <h2 id="task-list-title">Task List</h2>
+
+      <p>No tasks available.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Task Manager</p>
+    <p>
+      <a href="layout-lab.html">Open Layout Lab</a>
+    </p>
+  </footer>
+</body>
+</html>

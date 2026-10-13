@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<div id="box"></div>
+<script>
+  const box = document.getElementById("box");
+  box.textContent = "<b>bold?</b>";
+  console.log(box.children.length, box.innerHTML);
+  box.innerHTML = "<b>bold?</b>";
+  console.log(box.children.length, box.textContent);
+</script>
