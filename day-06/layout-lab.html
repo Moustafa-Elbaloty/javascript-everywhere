@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout Lab</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    header,
+    nav,
+    main,
+    footer {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    article {
+      margin-top: 2rem;
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+      max-width: 500px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.6rem;
+      font: inherit;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      border: 1px solid #999;
+      padding: 1rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #999;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Layout Lab</h1>
+    <p>An accessible HTML layout without JavaScript.</p>
+  </header>
+
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="index.html">Task Manager</a></li>
+      <li><a href="layout-lab.html">Layout Lab</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <article>
+      <h2>Contact Us</h2>
+
+      <form>
+        <div>
+          <label for="name">Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+          >
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+          >
+        </div>
+
+        <div>
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit">Send Message</button>
+      </form>
+
+      <section aria-labelledby="cards-title">
+        <h2 id="cards-title">Cards</h2>
+
+        <div class="card-grid">
+          <article class="card">
+            <h3>Card One</h3>
+            <p>First layout card.</p>
+          </article>
+
+          <article class="card">
+            <h3>Card Two</h3>
+            <p>Second layout card.</p>
+          </article>
+
+          <article class="card">
+            <h3>Card Three</h3>
+            <p>Third layout card.</p>
+          </article>
+
+          <article class="card">
+            <h3>Card Four</h3>
+            <p>Fourth layout card.</p>
+          </article>
+
+          <article class="card">
+            <h3>Card Five</h3>
+            <p>Fifth layout card.</p>
+          </article>
+
+          <article class="card">
+            <h3>Card Six</h3>
+            <p>Sixth layout card.</p>
+          </article>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Layout Lab</p>
+    <p>
+      <a href="index.html">Back to Task Manager</a>
+    </p>
+  </footer>
+</body>
+</html>

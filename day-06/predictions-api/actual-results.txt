@@ -1,0 +1,79 @@
+================ P01 ================
+false 404
+
+================ P02 ================
+no throw 404
+
+================ P03 ================
+TypeError
+
+================ P04 ================
+node:internal/deps/undici/undici:6961
+        return Promise.reject(new TypeError("Body is unusable: Body has already been read"));
+                              ^
+
+TypeError: Body is unusable: Body has already been read
+    at consumeBody (node:internal/deps/undici/undici:6961:31)
+    at _Response.json (node:internal/deps/undici/undici:6912:18)
+    at file:///media/mou/New%20Volume/js%20everywhere/day-06/predictions-api/p04.ts:3:30
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.15.0
+
+================ P05 ================
+true
+function false
+
+================ P06 ================
+201 "Trim me" medium false
+
+================ P07 ================
+204 404
+
+================ P08 ================
+400 {"error":"done must be a boolean"}
+
+================ P09 ================
+405 Method Not Allowed
+
+================ P10 ================
+200 application/json; charset=utf-8
+{ name: 'Task API', version: '1.0.0', status: 'ok' }
+
+================ P11 ================
+?q=tom+%26+jerry&page=2
+a b
+
+================ P12 ================
+start
+end
+microtask
+timer
+response
+
+================ P13 ================
+AbortError
+
+================ P14 ================
+[ 200, 404 ]
+
+================ P15 ================
+[ 'fulfilled', 'rejected' ]
+
+================ P16 ================
+400
+
+================ P17 ================
+400 priority must be low, medium, or high
+
+================ P18 ================
+file:///media/mou/New%20Volume/js%20everywhere/day-06/predictions-api/p18.ts:4
+console.log(data.titel.toUpperCase());
+                       ^
+
+TypeError: Cannot read properties of undefined (reading 'toUpperCase')
+    at file:///media/mou/New%20Volume/js%20everywhere/day-06/predictions-api/p18.ts:4:24
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.15.0
+

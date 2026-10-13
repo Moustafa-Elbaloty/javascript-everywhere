@@ -1,0 +1,5 @@
+{
+  "name": "predictions-api",
+  "private": true,
+  "type": "module"
+}

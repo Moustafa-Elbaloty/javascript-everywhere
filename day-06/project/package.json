@@ -1,0 +1,15 @@
+{
+  "name": "typed-grade-report",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "report": "node --experimental-strip-types src/main.ts",
+    "check": "tsc --noEmit",
+    "build": "tsc",
+    "start": "node dist/main.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.0.0"
+  }
+}
