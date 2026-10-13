@@ -22,3 +22,4 @@ My name is Moustafa Ahmed. This repository documents my learning journey through
 | Day 03 | Functions, Scope & Hoisting |
 | Day 04 | ES6+ & Async JS — Destructuring, Callbacks & the Event Loop |
 | Day 05 | Promises, Async/Await, Modules + Git |
+| Day 06 | TypeScript, APIs & Task Manager |
