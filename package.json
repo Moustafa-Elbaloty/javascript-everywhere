@@ -1,0 +1,28 @@
+{
+  "name": "js-everywhere",
+  "version": "1.0.0",
+  "description": "My name is Moustafa Ahmed. This repository documents my learning journey through JavaScript and TypeScript, from web fundamentals to AI applications.",
+  "main": "tes.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moustafa-Elbaloty/javascript-everywhere.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Moustafa-Elbaloty/javascript-everywhere/issues"
+  },
+  "homepage": "https://github.com/Moustafa-Elbaloty/javascript-everywhere#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.23"
+  }
+}
