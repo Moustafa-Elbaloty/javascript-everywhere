@@ -15,6 +15,7 @@ My name is Moustafa Ahmed. This repository documents my learning journey through
 7. AI Application
 
 ## Table of Contents
+
 | Session | Topic |
 |---|---|
 | Day 01 | Dev Environment Setup |
@@ -23,3 +24,5 @@ My name is Moustafa Ahmed. This repository documents my learning journey through
 | Day 04 | ES6+ & Async JS — Destructuring, Callbacks & the Event Loop |
 | Day 05 | Promises, Async/Await, Modules + Git |
 | Day 06 | TypeScript, APIs & Task Manager |
+| Day 07 | React Fundamentals, Props, State & Task Board |
+| Day 08 | React Router, Forms, Validation & Task Board v2 |
