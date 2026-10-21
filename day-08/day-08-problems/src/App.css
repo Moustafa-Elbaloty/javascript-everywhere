@@ -1,0 +1,128 @@
+#root {
+  min-height: 100vh;
+}
+
+.booking-page {
+  min-height: 100vh;
+  padding: 40px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #f3f5f9;
+}
+
+.booking-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 32px;
+  background: #fff;
+  border: 1px solid #e3e7ef;
+  border-radius: 18px;
+  box-shadow: 0 16px 48px rgb(25 40 70 / 8%);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #4b5fd7;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.booking-card h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 30px;
+}
+
+.subtitle {
+  margin: 8px 0 26px;
+  color: #687386;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field > label {
+  display: block;
+  margin-bottom: 7px;
+  color: #263247;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.field input:not([type="checkbox"]) {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #cbd3e0;
+  border-radius: 9px;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+}
+
+.field input:focus {
+  outline: 3px solid rgb(75 95 215 / 18%);
+  border-color: #4b5fd7;
+}
+
+.field input[aria-invalid="true"] {
+  border-color: #c62828;
+}
+
+.terms-field > label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 500;
+}
+
+.terms-field input {
+  width: 17px;
+  height: 17px;
+}
+
+.field-error,
+.api-error {
+  margin: 6px 0 0;
+  color: #b42318;
+  font-size: 13px;
+}
+
+.api-error {
+  margin: 0 0 16px;
+  padding: 12px;
+  border: 1px solid #f1b6b2;
+  border-radius: 8px;
+  background: #fff2f1;
+}
+
+.booking-card button {
+  width: 100%;
+  min-height: 46px;
+  border: 0;
+  border-radius: 9px;
+  background: #3449c5;
+  color: #fff;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.booking-card button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+@media (max-width: 480px) {
+  .booking-page {
+    padding: 18px 10px;
+  }
+
+  .booking-card {
+    padding: 22px 18px;
+  }
+}
