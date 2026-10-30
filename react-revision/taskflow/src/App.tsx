@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Footer from './components/Footer'
+import TaskStats from './components/TaskStats'
 
 type TaskStatus = 'Todo' | 'In Progress' | 'Done'
 
@@ -288,6 +289,7 @@ function App() {
                 <button type="submit" className="primary-button">
                   Add task
                 </button>
+
                 <button
                   type="button"
                   className="secondary-button"
@@ -298,6 +300,8 @@ function App() {
               </div>
             </form>
           )}
+
+          <TaskStats />
 
           <div className="task-list">
             {visibleTasks.map((task) => (
@@ -361,11 +365,6 @@ function App() {
                 </button>
               </div>
             )}
-          </div>
-
-          <div className="task-summary">
-            {visibleTasks.length} tasks ·{' '}
-            {visibleTasks.filter((task) => task.status === 'Done').length} done
           </div>
         </section>
 
