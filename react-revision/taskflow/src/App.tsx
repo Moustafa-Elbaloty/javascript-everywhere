@@ -3,6 +3,8 @@ import './App.css'
 import Footer from './components/Footer'
 import TaskStats from './components/TaskStats'
 
+export type Priority = 'low' | 'medium' | 'high'
+
 type TaskStatus = 'Todo' | 'In Progress' | 'Done'
 
 interface Task {
@@ -10,7 +12,7 @@ interface Task {
   title: string
   description: string
   project: string
-  priority: 'Low' | 'Medium' | 'High'
+  priority?: Priority
   status: TaskStatus
   dueDate: string
 }
@@ -21,7 +23,7 @@ const initialTasks: Task[] = [
     title: 'Design new landing page',
     description: 'Create a modern landing page with responsive sections.',
     project: 'Website Redesign',
-    priority: 'High',
+    priority: 'high',
     status: 'In Progress',
     dueDate: 'Nov 05',
   },
@@ -30,7 +32,7 @@ const initialTasks: Task[] = [
     title: 'Build reusable components',
     description: 'Prepare reusable React components for the application.',
     project: 'Mobile App',
-    priority: 'Medium',
+    priority: 'medium',
     status: 'Todo',
     dueDate: 'Nov 08',
   },
@@ -39,7 +41,6 @@ const initialTasks: Task[] = [
     title: 'Review mobile layouts',
     description: 'Check spacing and usability on smaller screens.',
     project: 'Mobile App',
-    priority: 'Low',
     status: 'Done',
     dueDate: 'Nov 02',
   },
@@ -48,7 +49,6 @@ const initialTasks: Task[] = [
     title: 'Update brand guidelines',
     description: 'Finalize typography, colors, and interface guidelines.',
     project: 'Design System',
-    priority: 'Medium',
     status: 'In Progress',
     dueDate: 'Nov 12',
   },
@@ -111,7 +111,7 @@ function App() {
         description: 'A new task ready for your attention.',
         project:
           activeProject === 'All Tasks' ? 'Website Redesign' : activeProject,
-        priority: 'Medium',
+        priority: 'medium',
         status: 'Todo',
         dueDate: 'No date',
       },
@@ -328,10 +328,12 @@ function App() {
                       {task.title}
                     </h3>
 
-                    <span
-                      className={`priority-dot priority-${task.priority.toLowerCase()}`}
-                      title={`${task.priority} priority`}
-                    />
+                    {task.priority && (
+                      <span
+                        className={`priority-dot priority-${task.priority}`}
+                        title={`${task.priority} priority`}
+                      />
+                    )}
                   </div>
 
                   <p>{task.description}</p>
