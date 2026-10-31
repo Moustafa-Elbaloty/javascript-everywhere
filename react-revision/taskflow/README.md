@@ -65,3 +65,24 @@ npm run build
 ### Desktop — 1280px
 
 ![Desktop Screenshot](./screenshots/desktop-1280.png)
+
+## Module 02 — Components & TypeScript
+
+This module extends TaskFlow with TypeScript types and reusable React components.
+
+### What I learned
+
+- Added an optional Priority type for tasks.
+- Created a reusable Badge component with typed props.
+- Added a Sidebar component with a SidebarProps interface.
+- Added an optional action prop to the Section component.
+- Used ReactNode for children and optional component content.
+- Practiced typed event handlers with the TaskCard delete challenge.
+
+### Components
+
+- Badge
+- Sidebar
+- Section
+- TaskCard
+- TaskList

@@ -11,3 +11,20 @@ React treats lowercase JSX tags as HTML elements instead of custom React compone
 ### 3. Why do we wrap two sibling elements in `<> </>`?
 
 JSX requires a component to return one parent element. A Fragment (`<> </>`) groups sibling elements without adding an unnecessary DOM element.
+
+# Module 02 - Reflection
+
+### 1. When would you choose type over interface?
+
+I choose `type` when I need to define union types or combine different types.
+I use `interface` mainly to describe the shape of objects.
+
+### 2. Why do we pass the whole task as one prop?
+
+Passing the whole task keeps related data together and makes the component easier to use.
+It also avoids passing many separate props to the same component.
+
+### 3. What does ?? do differently from ||?
+
+The `??` operator uses the fallback value only when the original value is `null` or `undefined`.
+The `||` operator uses the fallback when the value is falsy, such as `0`, `false`, or an empty string.
