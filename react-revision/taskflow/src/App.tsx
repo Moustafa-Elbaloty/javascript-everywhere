@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Footer from './components/Footer'
 import TaskStats from './components/TaskStats'
+import Badge from './components/Badge'
 
 export type Priority = 'low' | 'medium' | 'high'
 
@@ -328,12 +329,17 @@ function App() {
                       {task.title}
                     </h3>
 
-                    {task.priority && (
-                      <span
-                        className={`priority-dot priority-${task.priority}`}
-                        title={`${task.priority} priority`}
-                      />
-                    )}
+                    <Badge
+                      tone={
+                        task.priority === 'high'
+                          ? 'danger'
+                          : task.priority === 'medium'
+                            ? 'warning'
+                            : 'neutral'
+                      }
+                    >
+                      {task.priority ?? 'medium'}
+                    </Badge>
                   </div>
 
                   <p>{task.description}</p>
