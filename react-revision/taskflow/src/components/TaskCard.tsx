@@ -2,7 +2,7 @@ import Badge from './Badge'
 
 export type Priority = 'low' | 'medium' | 'high'
 
-type TaskStatus = 'Todo' | 'In Progress' | 'Done'
+export type TaskStatus = 'Todo' | 'In Progress' | 'Done'
 
 export interface Task {
   id: number
@@ -14,6 +14,19 @@ export interface Task {
   dueDate: string
 }
 
+export function nextStatus(status: TaskStatus): TaskStatus {
+  switch (status) {
+    case 'Todo':
+      return 'In Progress'
+
+    case 'In Progress':
+      return 'Done'
+
+    case 'Done':
+      return 'Todo'
+  }
+}
+
 interface TaskCardProps {
   task: Task
   onToggle: (id: number) => void
@@ -21,18 +34,20 @@ interface TaskCardProps {
 }
 
 function TaskCard({ task, onToggle, onDelete }: TaskCardProps) {
+  const next = nextStatus(task.status)
+  const nextLabel = next === 'Todo' ? 'To Do' : next
+
   return (
     <article className="task-card">
       <button
-        className={`task-check ${
+        type="button"
+        className={`task-check status-cycle-button ${
           task.status === 'Done' ? 'checked' : ''
         }`}
         onClick={() => onToggle(task.id)}
-        aria-label={
-          task.status === 'Done' ? 'Mark as todo' : 'Mark as done'
-        }
+        aria-label={`Move ${task.title} to ${nextLabel}`}
       >
-        {task.status === 'Done' ? '✓' : ''}
+        {nextLabel}
       </button>
 
       <div className="task-main">

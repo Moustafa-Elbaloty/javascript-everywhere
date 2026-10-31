@@ -4,7 +4,7 @@ import Footer from './components/Footer'
 import TaskStats from './components/TaskStats'
 import Section from './components/Section'
 import TaskList from './components/TaskList'
-import type { Task } from './components/TaskCard'
+import { nextStatus, type Task } from './components/TaskCard'
 import Sidebar from './components/Sidebar'
 import Badge from './components/Badge'
 
@@ -81,7 +81,7 @@ function App() {
         task.id === id
           ? {
               ...task,
-              status: task.status === 'Done' ? 'Todo' : 'Done',
+              status: nextStatus(task.status),
             }
           : task,
       ),

@@ -1231,3 +1231,14 @@ a {
 .task-delete:hover {
   background: #fb71852b;
 }
+/* Module 03 - Three-step status button */
+.task-check.status-cycle-button {
+  width: auto;
+  min-width: 112px;
+  height: auto;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
