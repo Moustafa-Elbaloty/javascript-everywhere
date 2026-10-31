@@ -1,32 +1,67 @@
-# React + TypeScript + Vite
+# TaskFlow
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+TaskFlow is a simple task management dashboard built with React and TypeScript. I created this project as part of Module 01 to practice working with React components and responsive layouts.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- View tasks and their current status.
+- Filter tasks by project.
+- Add and manage tasks.
+- View task statistics.
+- Navigate between different projects.
+- Responsive layout for mobile, tablet, and desktop.
 
-## React Compiler
+## Technologies
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- TypeScript
+- Vite
+- CSS
 
-## Expanding the Oxlint configuration
+## Getting Started
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+Clone the repository:
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+git clone https://github.com/Moustafa-Elbaloty/javascript-everywhere.git
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Go to the project folder:
+
+```bash
+cd javascript-everywhere/react-revision/taskflow
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+## Build
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+## Screenshots
+
+### Mobile — 375px
+
+![Mobile Screenshot](./screenshots/mobile-375.png)
+
+### Tablet — 768px
+
+![Tablet Screenshot](./screenshots/tablet-768.png)
+
+### Desktop — 1280px
+
+![Desktop Screenshot](./screenshots/desktop-1280.png)
