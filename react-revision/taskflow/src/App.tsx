@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Footer from './components/Footer'
 import TaskStats from './components/TaskStats'
+import Sidebar from './components/Sidebar'
 import Badge from './components/Badge'
 
 export type Priority = 'low' | 'medium' | 'high'
@@ -56,11 +57,11 @@ const initialTasks: Task[] = [
 ]
 
 const projects = [
-  { name: 'All Tasks', icon: '◫' },
-  { name: 'Website Redesign', icon: '◈' },
-  { name: 'Mobile App', icon: '▣' },
-  { name: 'Marketing', icon: '◉' },
-  { name: 'Design System', icon: '✳' },
+  'All Tasks',
+  'Website Redesign',
+  'Mobile App',
+  'Marketing',
+  'Design System',
 ]
 
 function App() {
@@ -125,61 +126,14 @@ function App() {
 
   return (
     <div className="app-shell">
-      <aside className="sidebar">
-        <a className="brand" href="#" aria-label="TaskFlow home">
-          <span className="brand-mark">T</span>
-          <span>
-            task<span className="brand-light">flow</span>
-          </span>
-        </a>
-
-        <div className="workspace-label">WORKSPACE</div>
-
-        <button className="workspace-switch">
-          <span className="workspace-avatar">M</span>
-          <span className="workspace-name">Mustafa's space</span>
-          <span className="muted">⌄</span>
-        </button>
-
-        <div className="nav-label">MENU</div>
-
-        <nav className="project-nav" aria-label="Projects">
-          {projects.map((project) => (
-            <button
-              key={project.name}
-              className={`nav-item ${
-                activeProject === project.name ? 'active' : ''
-              }`}
-              onClick={() => setActiveProject(project.name)}
-            >
-              <span className="nav-icon">{project.icon}</span>
-              <span>{project.name}</span>
-
-              {project.name === 'All Tasks' && (
-                <span className="nav-count">{tasks.length}</span>
-              )}
-            </button>
-          ))}
-        </nav>
-
-        <div className="sidebar-bottom">
-          <div className="upgrade-card">
-            <span className="upgrade-icon">✦</span>
-            <strong>Make room for focus.</strong>
-            <p>Your next big thing starts with one small task.</p>
-            <button onClick={() => setShowForm(true)}>＋ New task</button>
-          </div>
-
-          <div className="profile">
-            <div className="profile-avatar">M</div>
-            <div>
-              <strong>Mostafa Ahmed</strong>
-              <span>Free workspace</span>
-            </div>
-            <span className="muted">•••</span>
-          </div>
-        </div>
-      </aside>
+      <Sidebar
+        title="Mustafa's space"
+        projects={projects}
+        activeProject={activeProject}
+        taskCount={tasks.length}
+        onProjectSelect={setActiveProject}
+        onAddTask={() => setShowForm(true)}
+      />
 
       <main className="main-content">
         <header className="app-header">
