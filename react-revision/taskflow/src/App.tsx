@@ -3,22 +3,10 @@ import './App.css'
 import Footer from './components/Footer'
 import TaskStats from './components/TaskStats'
 import Section from './components/Section'
+import TaskList from './components/TaskList'
+import type { Task } from './components/TaskCard'
 import Sidebar from './components/Sidebar'
 import Badge from './components/Badge'
-
-export type Priority = 'low' | 'medium' | 'high'
-
-type TaskStatus = 'Todo' | 'In Progress' | 'Done'
-
-interface Task {
-  id: number
-  title: string
-  description: string
-  project: string
-  priority?: Priority
-  status: TaskStatus
-  dueDate: string
-}
 
 const initialTasks: Task[] = [
   {
@@ -261,76 +249,12 @@ function App() {
 
           <TaskStats />
 
-          <div className="task-list">
-            {visibleTasks.map((task) => (
-              <article className="task-card" key={task.id}>
-                <button
-                  className={`task-check ${
-                    task.status === 'Done' ? 'checked' : ''
-                  }`}
-                  onClick={() => toggleTask(task.id)}
-                  aria-label={
-                    task.status === 'Done' ? 'Mark as todo' : 'Mark as done'
-                  }
-                >
-                  {task.status === 'Done' ? '✓' : ''}
-                </button>
+          <TaskList
+            tasks={visibleTasks}
+            onToggle={toggleTask}
+            onAddTask={() => setShowForm(true)}
+          />
 
-                <div className="task-main">
-                  <div className="task-title-row">
-                    <h3
-                      className={`task-title ${
-                        task.status === 'Done' ? 'completed-title' : ''
-                      }`}
-                    >
-                      {task.title}
-                    </h3>
-
-                    <Badge
-                      tone={
-                        task.priority === 'high'
-                          ? 'danger'
-                          : task.priority === 'medium'
-                            ? 'warning'
-                            : 'neutral'
-                      }
-                    >
-                      {task.priority ?? 'medium'}
-                    </Badge>
-                  </div>
-
-                  <p>{task.description}</p>
-
-                  <div className="task-meta">
-                    <span className="project-tag">{task.project}</span>
-                    <span className="due-date">◷ {task.dueDate}</span>
-                  </div>
-                </div>
-
-                <span
-                  className={`status-pill status-${task.status
-                    .toLowerCase()
-                    .replace(' ', '-')}`}
-                >
-                  {task.status}
-                </span>
-              </article>
-            ))}
-
-            {visibleTasks.length === 0 && (
-              <div className="empty-state">
-                <span>✳</span>
-                <h3>Nothing on your plate</h3>
-                <p>Try another filter or add a new task.</p>
-                <button
-                  className="primary-button"
-                  onClick={() => setShowForm(true)}
-                >
-                  Add a task
-                </button>
-              </div>
-            )}
-          </div>
         </Section>
 
         <Footer />

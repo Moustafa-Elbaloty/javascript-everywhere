@@ -1215,3 +1215,19 @@ a {
     font-size: 20px;
   }
 }
+
+/* Task Delete Button */
+.task-delete {
+  flex: 0 0 auto;
+  padding: 6px 9px;
+  border: 1px solid #fb718540;
+  border-radius: 6px;
+  background: #fb71851a;
+  color: #fb7185;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.task-delete:hover {
+  background: #fb71852b;
+}
