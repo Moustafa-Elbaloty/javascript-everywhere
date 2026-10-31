@@ -60,6 +60,7 @@ function App() {
   const [search, setSearch] = useState('')
   const [showForm, setShowForm] = useState(false)
   const [newTitle, setNewTitle] = useState('')
+  const [deletedTask, setDeletedTask] = useState<Task | null>(null)
 
   const completedTasks = tasks.filter(
     (task) => task.status === 'Done',
@@ -98,7 +99,19 @@ function App() {
   }
 
   function deleteTask(id: number) {
+    const taskToDelete = tasks.find((task) => task.id === id)
+
+    if (!taskToDelete) return
+
+    setDeletedTask(taskToDelete)
     setTasks((current) => current.filter((task) => task.id !== id))
+  }
+
+  function undoDelete() {
+    if (!deletedTask) return
+
+    setTasks((current) => [deletedTask, ...current])
+    setDeletedTask(null)
   }
 
   function addTask(event: React.FormEvent<HTMLFormElement>) {
@@ -264,6 +277,19 @@ function App() {
           )}
 
           <TaskStats />
+
+          {deletedTask && (
+            <div className="undo-banner" role="status">
+              <span>Task deleted · </span>
+              <button
+                type="button"
+                className="undo-button"
+                onClick={undoDelete}
+              >
+                Undo
+              </button>
+            </div>
+          )}
 
           <TaskList
             tasks={visibleTasks}
