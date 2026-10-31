@@ -4,12 +4,15 @@ interface TaskListProps {
   tasks: Task[]
   onToggle: (id: number) => void
   onAddTask: () => void
+  onDeleteTask: (id: number) => void
 }
 
-function TaskList({ tasks, onToggle, onAddTask }: TaskListProps) {
-  function handleDelete(id: number) {
-    console.log(id)
-  }
+function TaskList({
+  tasks,
+  onToggle,
+  onAddTask,
+  onDeleteTask,
+}: TaskListProps) {
 
   return (
     <div className="task-list">
@@ -18,7 +21,7 @@ function TaskList({ tasks, onToggle, onAddTask }: TaskListProps) {
           key={task.id}
           task={task}
           onToggle={onToggle}
-          onDelete={handleDelete}
+          onDelete={onDeleteTask}
         />
       ))}
 

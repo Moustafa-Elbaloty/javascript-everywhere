@@ -61,6 +61,15 @@ function App() {
   const [showForm, setShowForm] = useState(false)
   const [newTitle, setNewTitle] = useState('')
 
+  const completedTasks = tasks.filter(
+    (task) => task.status === 'Done',
+  ).length
+
+  const progressPercentage =
+    tasks.length === 0
+      ? 0
+      : Math.round((completedTasks / tasks.length) * 100)
+
   const visibleTasks = tasks.filter((task) => {
     const matchesProject =
       activeProject === 'All Tasks' || task.project === activeProject
@@ -86,6 +95,10 @@ function App() {
           : task,
       ),
     )
+  }
+
+  function deleteTask(id: number) {
+    setTasks((current) => current.filter((task) => task.id !== id))
   }
 
   function addTask(event: React.FormEvent<HTMLFormElement>) {
@@ -129,6 +142,9 @@ function App() {
           <div>
             <span className="breadcrumb">Workspace / Tasks</span>
             <h1>My Tasks</h1>
+            <p className="task-progress">
+              {completedTasks} of {tasks.length} done ({progressPercentage}%)
+            </p>
           </div>
 
           <div className="header-actions">
@@ -253,6 +269,7 @@ function App() {
             tasks={visibleTasks}
             onToggle={toggleTask}
             onAddTask={() => setShowForm(true)}
+            onDeleteTask={deleteTask}
           />
 
         </Section>

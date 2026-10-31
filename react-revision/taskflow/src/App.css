@@ -1242,3 +1242,11 @@ a {
   font-weight: 600;
   white-space: nowrap;
 }
+
+
+/* Module 03 - Progress line */
+.task-progress {
+  margin: 6px 0 0;
+  color: #7b8495;
+  font-size: 14px;
+}
