@@ -1178,3 +1178,40 @@ a {
   background: #fb71851a;
   color: #fb7185;
 }
+
+/* Section Header */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  margin: 0;
+  color: #eeedf5;
+  font-size: 22px;
+  letter-spacing: -0.7px;
+}
+
+.section-action {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.section-body {
+  min-width: 0;
+}
+
+@media (max-width: 480px) {
+  .section-header {
+    gap: 10px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+}

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Footer from './components/Footer'
 import TaskStats from './components/TaskStats'
+import Section from './components/Section'
 import Sidebar from './components/Sidebar'
 import Badge from './components/Badge'
 
@@ -196,10 +197,12 @@ function App() {
           </article>
         </section>
 
-        <section className="tasks-section">
+        <Section
+          title="Tasks"
+          action={<Badge tone="neutral">{tasks.length} tasks</Badge>}
+        >
           <div className="tasks-heading">
             <div>
-              <h2>Tasks</h2>
               <p>Manage and track your work.</p>
             </div>
 
@@ -328,7 +331,7 @@ function App() {
               </div>
             )}
           </div>
-        </section>
+        </Section>
 
         <Footer />
       </main>
