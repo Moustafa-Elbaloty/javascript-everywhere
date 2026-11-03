@@ -1243,14 +1243,12 @@ a {
   white-space: nowrap;
 }
 
-
 /* Module 03 - Progress line */
 .task-progress {
   margin: 6px 0 0;
   color: #7b8495;
   font-size: 14px;
 }
-
 
 /* Module 03 - Undo delete */
 .undo-banner {
@@ -1277,4 +1275,54 @@ a {
 
 .undo-button:hover {
   text-decoration: underline;
+}
+/* TaskFlow - Filter Pills */
+
+.task-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 22px;
+}
+
+.filter-button {
+  appearance: none;
+  padding: 8px 16px;
+  border: 1px solid #30394a;
+  border-radius: 999px;
+  background: #1b2230;
+  color: #aab4c5;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-button:hover {
+  background: #293345;
+  border-color: #52617a;
+  color: #ffffff;
+}
+
+.filter-button.active {
+  background: #39465c;
+  border-color: #71809a;
+  color: #ffffff;
+}
+
+.filter-button:focus-visible {
+  outline: 2px solid #8298bd;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .task-filters {
+    gap: 6px;
+  }
+
+  .filter-button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
 }

@@ -61,6 +61,7 @@ function App() {
   const [showForm, setShowForm] = useState(false)
   const [newTitle, setNewTitle] = useState('')
   const [deletedTask, setDeletedTask] = useState<Task | null>(null)
+  const [sortMode, setSortMode] = useState<'default' | 'title'>('default')
 
   const completedTasks = tasks.filter(
     (task) => task.status === 'Done',
@@ -71,7 +72,12 @@ function App() {
       ? 0
       : Math.round((completedTasks / tasks.length) * 100)
 
-  const visibleTasks = tasks.filter((task) => {
+  const sortedTasks =
+    sortMode === 'title'
+      ? [...tasks].sort((a, b) => a.title.localeCompare(b.title))
+      : [...tasks]
+
+  const visibleTasks = sortedTasks.filter((task) => {
     const matchesProject =
       activeProject === 'All Tasks' || task.project === activeProject
 
@@ -233,6 +239,18 @@ function App() {
                 aria-label="Search tasks"
               />
             </label>
+
+            <button
+              type="button"
+              className="secondary-button sort-button"
+              onClick={() =>
+                setSortMode((current) =>
+                  current === 'default' ? 'title' : 'default',
+                )
+              }
+            >
+              Sort: {sortMode}
+            </button>
           </div>
 
           <div className="task-filters" aria-label="Filter tasks">
