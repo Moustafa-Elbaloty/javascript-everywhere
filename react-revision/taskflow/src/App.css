@@ -1446,3 +1446,44 @@ a {
     flex: 1;
   }
 }
+
+/* Module 04 - Results Summary */
+
+.results-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.results-summary p {
+  margin: 0;
+}
+
+.results-summary strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.clear-filters-button {
+  border: none;
+  background: transparent;
+  color: #4f46e5;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.clear-filters-button:hover {
+  color: #3730a3;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .results-summary {
+    align-items: flex-start;
+  }
+}

@@ -119,10 +119,23 @@ function App() {
 
     const matchesSearch = task.title
       .toLowerCase()
-      .includes(search.toLowerCase())
+      .includes(search.trim().toLowerCase())
 
     return matchesProject && matchesFilter && matchesSearch
   })
+
+  const hasActiveFilters =
+    search.trim() !== '' ||
+    activeFilter !== 'All' ||
+    sortMode !== 'default' ||
+    activeProject !== 'All Tasks'
+
+  function clearFilters() {
+    setSearch('')
+    setActiveFilter('All')
+    setSortMode('default')
+    setActiveProject('All Tasks')
+  }
 
   function openAddForm() {
     setEditingTask(null)
@@ -335,6 +348,23 @@ function App() {
             sortOption={sortMode}
             onSortChange={setSortMode}
           />
+
+          <div className="results-summary">
+            <p>
+              Showing <strong>{visibleTasks.length}</strong> of{' '}
+              <strong>{tasks.length}</strong>
+            </p>
+
+            {hasActiveFilters && (
+              <button
+                type="button"
+                className="clear-filters-button"
+                onClick={clearFilters}
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
 
           {showForm && (
             <TaskForm
