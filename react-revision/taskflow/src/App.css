@@ -1333,3 +1333,56 @@ a {
   border-color: #8298bd;
   box-shadow: 0 0 0 2px rgba(130, 152, 189, 0.2);
 }
+
+
+/* Module 03 - Toolbar buttons */
+.sort-button,
+.select-next-button {
+  appearance: none;
+  min-height: 40px;
+  padding: 9px 16px;
+  border: 1px solid #40516b;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sort-button {
+  background: #202a39;
+  color: #cbd5e1;
+}
+
+.sort-button:hover {
+  background: #303d51;
+  border-color: #647997;
+}
+
+.select-next-button {
+  background: #344b70;
+  color: #ffffff;
+  border-color: #58749d;
+}
+
+.select-next-button:hover {
+  background: #45628e;
+  border-color: #7998c4;
+}
+
+.sort-button:focus-visible,
+.select-next-button:focus-visible {
+  outline: 2px solid #829fc8;
+  outline-offset: 3px;
+}
+
+.sort-button:active,
+.select-next-button:active {
+  transform: translateY(1px);
+}
+
+.select-next-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

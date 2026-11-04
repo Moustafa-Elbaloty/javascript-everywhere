@@ -56,15 +56,15 @@ npm run build
 
 ### Mobile — 375px
 
-![Mobile Screenshot](./screenshots/mobile-375.png)
+![Mobile Screenshot](./screenshots/375.jpg)
 
 ### Tablet — 768px
 
-![Tablet Screenshot](./screenshots/tablet-768.png)
+![Tablet Screenshot](./screenshots/768.jpg)
 
 ### Desktop — 1280px
 
-![Desktop Screenshot](./screenshots/desktop-1280.png)
+![Desktop Screenshot](./screenshots/1280.jpg)
 
 ## Module 02 — Components & TypeScript
 
@@ -86,3 +86,28 @@ This module extends TaskFlow with TypeScript types and reusable React components
 - Section
 - TaskCard
 - TaskList
+
+
+## Module 03 — State & Events
+
+This module makes the TaskFlow task list more interactive using React state and immutable updates.
+
+### What I learned
+
+- Added a three-step task status cycle: To Do, In Progress, and Done.
+- Calculated task progress and completion percentage from existing state.
+- Added the ability to undo the last deleted task.
+- Added sorting by title without mutating the original tasks array.
+- Used conditional rendering for the Undo message.
+- Practised state updates with map, filter, and spread syntax.
+
+### Challenge
+
+- Added a Select next button to move the selection between tasks.
+- The selection returns to the first task after reaching the last one.
+
+### Module 03 Screenshots
+
+![Module 03 Desktop](./screenshots/module-03-desktop.jpg)
+
+![Module 03 Mobile](./screenshots/module-03-mobile.jpg)
