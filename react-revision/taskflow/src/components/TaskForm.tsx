@@ -111,6 +111,20 @@ function TaskForm({
     })
   }
 
+  function handleCancel() {
+    const hasChanges =
+      values.title !== initialValues.title ||
+      values.description !== initialValues.description ||
+      values.project !== initialValues.project ||
+      values.priority !== initialValues.priority ||
+      values.status !== initialValues.status ||
+      values.dueDate !== initialValues.dueDate
+
+    if (!hasChanges || window.confirm('Discard changes?')) {
+      onCancel()
+    }
+  }
+
   return (
     <form className="task-form" onSubmit={handleSubmit} noValidate>
       <div className="form-field">
@@ -234,7 +248,7 @@ function TaskForm({
         <button
           type="button"
           className="secondary-button"
-          onClick={onCancel}
+          onClick={handleCancel}
         >
           Cancel
         </button>
