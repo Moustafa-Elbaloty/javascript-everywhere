@@ -1326,3 +1326,10 @@ a {
     font-size: 12px;
   }
 }
+
+
+/* Module 03 Challenge - Selected task */
+.task-card.selected {
+  border-color: #8298bd;
+  box-shadow: 0 0 0 2px rgba(130, 152, 189, 0.2);
+}

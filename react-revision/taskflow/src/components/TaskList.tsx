@@ -5,6 +5,7 @@ interface TaskListProps {
   onToggle: (id: number) => void
   onAddTask: () => void
   onDeleteTask: (id: number) => void
+  selectedId: number | null
 }
 
 function TaskList({
@@ -12,6 +13,7 @@ function TaskList({
   onToggle,
   onAddTask,
   onDeleteTask,
+  selectedId,
 }: TaskListProps) {
 
   return (
@@ -22,6 +24,7 @@ function TaskList({
           task={task}
           onToggle={onToggle}
           onDelete={onDeleteTask}
+          isSelected={selectedId === task.id}
         />
       ))}
 

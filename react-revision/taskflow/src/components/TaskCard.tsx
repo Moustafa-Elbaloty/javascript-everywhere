@@ -31,14 +31,20 @@ interface TaskCardProps {
   task: Task
   onToggle: (id: number) => void
   onDelete: (id: number) => void
+  isSelected: boolean
 }
 
-function TaskCard({ task, onToggle, onDelete }: TaskCardProps) {
+function TaskCard({
+  task,
+  onToggle,
+  onDelete,
+  isSelected,
+}: TaskCardProps) {
   const next = nextStatus(task.status)
   const nextLabel = next === 'Todo' ? 'To Do' : next
 
   return (
-    <article className="task-card">
+    <article className={`task-card ${isSelected ? 'selected' : ''}`}>
       <button
         type="button"
         className={`task-check status-cycle-button ${

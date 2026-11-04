@@ -62,6 +62,7 @@ function App() {
   const [newTitle, setNewTitle] = useState('')
   const [deletedTask, setDeletedTask] = useState<Task | null>(null)
   const [sortMode, setSortMode] = useState<'default' | 'title'>('default')
+  const [selectedId, setSelectedId] = useState<number | null>(null)
 
   const completedTasks = tasks.filter(
     (task) => task.status === 'Done',
@@ -118,6 +119,24 @@ function App() {
 
     setTasks((current) => [deletedTask, ...current])
     setDeletedTask(null)
+  }
+
+  function selectNextTask() {
+    if (visibleTasks.length === 0) {
+      setSelectedId(null)
+      return
+    }
+
+    const currentIndex = visibleTasks.findIndex(
+      (task) => task.id === selectedId,
+    )
+
+    const nextIndex =
+      currentIndex === -1 || currentIndex === visibleTasks.length - 1
+        ? 0
+        : currentIndex + 1
+
+    setSelectedId(visibleTasks[nextIndex].id)
   }
 
   function addTask(event: React.FormEvent<HTMLFormElement>) {
@@ -251,6 +270,15 @@ function App() {
             >
               Sort: {sortMode}
             </button>
+
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={selectNextTask}
+              disabled={visibleTasks.length === 0}
+            >
+              Select next
+            </button>
           </div>
 
           <div className="task-filters" aria-label="Filter tasks">
@@ -314,6 +342,7 @@ function App() {
             onToggle={toggleTask}
             onAddTask={() => setShowForm(true)}
             onDeleteTask={deleteTask}
+            selectedId={selectedId}
           />
 
         </Section>
