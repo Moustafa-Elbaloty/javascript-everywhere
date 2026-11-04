@@ -273,7 +273,7 @@ function App() {
 
             <button
               type="button"
-              className="secondary-button"
+              className="secondary-button select-next-button"
               onClick={selectNextTask}
               disabled={visibleTasks.length === 0}
             >
