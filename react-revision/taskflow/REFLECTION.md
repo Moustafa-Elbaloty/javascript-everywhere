@@ -28,3 +28,17 @@ It also avoids passing many separate props to the same component.
 
 The `??` operator uses the fallback value only when the original value is `null` or `undefined`.
 The `||` operator uses the fallback when the value is falsy, such as `0`, `false`, or an empty string.
+
+# Module 03 — Reflection
+
+### 1. Why does tasks.push(task) followed by setTasks(tasks) not update the screen?
+
+Because `push()` changes the original array instead of creating a new one. React may not detect the change because the array reference stays the same, so we should create a new array using spread.
+
+### 2. Why is the index a bad key for this list?
+
+The index can change when tasks are added, deleted, or sorted. Using `task.id` gives every task a stable and unique key.
+
+### 3. Which values in your TaskList are state, and which are derived?
+
+In my current implementation, TaskList does not manage its own state; the state is managed in App, including tasks, selectedId, deletedTask, and sortMode. Values like completedTasks, progressPercentage, sortedTasks, and visibleTasks are derived from the existing state.
