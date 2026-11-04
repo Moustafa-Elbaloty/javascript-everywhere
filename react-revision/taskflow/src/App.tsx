@@ -1,12 +1,21 @@
 import { useState } from 'react'
 import './App.css'
+
 import Footer from './components/Footer'
 import TaskStats from './components/TaskStats'
 import Section from './components/Section'
 import TaskList from './components/TaskList'
-import { nextStatus, type Task } from './components/TaskCard'
+import { nextStatus } from './components/TaskCard'
 import Sidebar from './components/Sidebar'
 import Badge from './components/Badge'
+import TaskForm from './components/TaskForm'
+import TaskFilters, {
+  type SortOption,
+  type StatusFilter,
+} from './components/TaskFilters'
+
+import type { Task, TaskFormValues } from './types/task'
+import { fromFormValues, toFormValues } from './utils/taskForm'
 
 const initialTasks: Task[] = [
   {
@@ -16,7 +25,7 @@ const initialTasks: Task[] = [
     project: 'Website Redesign',
     priority: 'high',
     status: 'In Progress',
-    dueDate: 'Nov 05',
+    dueDate: '2026-11-05',
   },
   {
     id: 2,
@@ -25,7 +34,7 @@ const initialTasks: Task[] = [
     project: 'Mobile App',
     priority: 'medium',
     status: 'Todo',
-    dueDate: 'Nov 08',
+    dueDate: '2026-11-08',
   },
   {
     id: 3,
@@ -33,7 +42,7 @@ const initialTasks: Task[] = [
     description: 'Check spacing and usability on smaller screens.',
     project: 'Mobile App',
     status: 'Done',
-    dueDate: 'Nov 02',
+    dueDate: '2026-11-02',
   },
   {
     id: 4,
@@ -41,7 +50,7 @@ const initialTasks: Task[] = [
     description: 'Finalize typography, colors, and interface guidelines.',
     project: 'Design System',
     status: 'In Progress',
-    dueDate: 'Nov 12',
+    dueDate: '2026-11-12',
   },
 ]
 
@@ -53,15 +62,24 @@ const projects = [
   'Design System',
 ]
 
+const emptyTaskValues: TaskFormValues = {
+  title: '',
+  description: '',
+  project: 'Website Redesign',
+  priority: 'medium',
+  status: 'Todo',
+  dueDate: '',
+}
+
 function App() {
-  const [tasks, setTasks] = useState(initialTasks)
+  const [tasks, setTasks] = useState<Task[]>(initialTasks)
   const [activeProject, setActiveProject] = useState('All Tasks')
-  const [activeFilter, setActiveFilter] = useState('All')
+  const [activeFilter, setActiveFilter] = useState<StatusFilter>('All')
   const [search, setSearch] = useState('')
   const [showForm, setShowForm] = useState(false)
-  const [newTitle, setNewTitle] = useState('')
+  const [editingTask, setEditingTask] = useState<Task | null>(null)
   const [deletedTask, setDeletedTask] = useState<Task | null>(null)
-  const [sortMode, setSortMode] = useState<'default' | 'title'>('default')
+  const [sortMode, setSortMode] = useState<SortOption>('default')
   const [selectedId, setSelectedId] = useState<number | null>(null)
 
   const completedTasks = tasks.filter(
@@ -74,9 +92,23 @@ function App() {
       : Math.round((completedTasks / tasks.length) * 100)
 
   const sortedTasks =
-    sortMode === 'title'
-      ? [...tasks].sort((a, b) => a.title.localeCompare(b.title))
-      : [...tasks]
+    sortMode === 'default'
+      ? [...tasks]
+      : [...tasks].sort((a, b) => {
+          if (sortMode === 'title') {
+            return a.title.localeCompare(b.title)
+          }
+
+          if (sortMode === 'dueDate') {
+            if (!a.dueDate && !b.dueDate) return 0
+            if (!a.dueDate) return 1
+            if (!b.dueDate) return -1
+
+            return a.dueDate.localeCompare(b.dueDate)
+          }
+
+          return 0
+        })
 
   const visibleTasks = sortedTasks.filter((task) => {
     const matchesProject =
@@ -91,6 +123,44 @@ function App() {
 
     return matchesProject && matchesFilter && matchesSearch
   })
+
+  function openAddForm() {
+    setEditingTask(null)
+    setShowForm(true)
+  }
+
+  function openEditForm(task: Task) {
+    setEditingTask(task)
+    setShowForm(true)
+  }
+
+  function closeForm() {
+    setShowForm(false)
+    setEditingTask(null)
+  }
+
+  function saveTask(values: TaskFormValues) {
+    const taskValues = fromFormValues(values)
+
+    if (editingTask) {
+      setTasks((current) =>
+        current.map((task) =>
+          task.id === editingTask.id
+            ? { ...task, ...taskValues }
+            : task,
+        ),
+      )
+    } else {
+      const newTask: Task = {
+        id: Date.now(),
+        ...taskValues,
+      }
+
+      setTasks((current) => [newTask, ...current])
+    }
+
+    closeForm()
+  }
 
   function toggleTask(id: number) {
     setTasks((current) =>
@@ -139,30 +209,13 @@ function App() {
     setSelectedId(visibleTasks[nextIndex].id)
   }
 
-  function addTask(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    if (!newTitle.trim()) {
-      return
-    }
-
-    setTasks((current) => [
-      {
-        id: Date.now(),
-        title: newTitle.trim(),
-        description: 'A new task ready for your attention.',
+  const formInitialValues = editingTask
+    ? toFormValues(editingTask)
+    : {
+        ...emptyTaskValues,
         project:
           activeProject === 'All Tasks' ? 'Website Redesign' : activeProject,
-        priority: 'medium',
-        status: 'Todo',
-        dueDate: 'No date',
-      },
-      ...current,
-    ])
-
-    setNewTitle('')
-    setShowForm(false)
-  }
+      }
 
   return (
     <div className="app-shell">
@@ -172,7 +225,7 @@ function App() {
         activeProject={activeProject}
         taskCount={tasks.length}
         onProjectSelect={setActiveProject}
-        onAddTask={() => setShowForm(true)}
+        onAddTask={openAddForm}
       />
 
       <main className="main-content">
@@ -180,6 +233,7 @@ function App() {
           <div>
             <span className="breadcrumb">Workspace / Tasks</span>
             <h1>My Tasks</h1>
+
             <p className="task-progress">
               {completedTasks} of {tasks.length} done ({progressPercentage}%)
             </p>
@@ -188,7 +242,7 @@ function App() {
           <div className="header-actions">
             <button
               className="primary-button"
-              onClick={() => setShowForm(!showForm)}
+              onClick={openAddForm}
             >
               + New task
             </button>
@@ -212,6 +266,7 @@ function App() {
               <span>Total tasks</span>
               <span className="stat-icon">◫</span>
             </div>
+
             <strong>{tasks.length}</strong>
             <span className="stat-note">Tasks in your workspace</span>
           </article>
@@ -221,9 +276,11 @@ function App() {
               <span>Completed</span>
               <span className="stat-icon">✓</span>
             </div>
+
             <strong>
               {tasks.filter((task) => task.status === 'Done').length}
             </strong>
+
             <span className="stat-note">Tasks marked as done</span>
           </article>
 
@@ -232,9 +289,11 @@ function App() {
               <span>In progress</span>
               <span className="stat-icon">◷</span>
             </div>
+
             <strong>
               {tasks.filter((task) => task.status === 'In Progress').length}
             </strong>
+
             <span className="stat-note">Tasks currently in progress</span>
           </article>
         </section>
@@ -250,6 +309,7 @@ function App() {
 
             <label className="search-box">
               <span aria-hidden="true">⌕</span>
+
               <input
                 type="search"
                 placeholder="Search tasks..."
@@ -261,18 +321,6 @@ function App() {
 
             <button
               type="button"
-              className="secondary-button sort-button"
-              onClick={() =>
-                setSortMode((current) =>
-                  current === 'default' ? 'title' : 'default',
-                )
-              }
-            >
-              Sort: {sortMode}
-            </button>
-
-            <button
-              type="button"
               className="secondary-button select-next-button"
               onClick={selectNextTask}
               disabled={visibleTasks.length === 0}
@@ -281,45 +329,22 @@ function App() {
             </button>
           </div>
 
-          <div className="task-filters" aria-label="Filter tasks">
-            {['All', 'Todo', 'In Progress', 'Done'].map((filter) => (
-              <button
-                key={filter}
-                className={`filter-button ${
-                  activeFilter === filter ? 'active' : ''
-                }`}
-                onClick={() => setActiveFilter(filter)}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
+          <TaskFilters
+            activeFilter={activeFilter}
+            onFilterChange={setActiveFilter}
+            sortOption={sortMode}
+            onSortChange={setSortMode}
+          />
 
           {showForm && (
-            <form className="task-form" onSubmit={addTask}>
-              <label htmlFor="new-task-title">Task title</label>
-              <input
-                id="new-task-title"
-                type="text"
-                value={newTitle}
-                onChange={(event) => setNewTitle(event.target.value)}
-                placeholder="Enter a task title"
-              />
-
-              <div className="form-actions">
-                <button type="submit" className="primary-button">
-                  Add task
-                </button>
-
-                <button
-                  type="button"
-                  className="secondary-button"
-                  onClick={() => setShowForm(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
+            <TaskForm
+              key={editingTask ? `edit-${editingTask.id}` : 'new'}
+              initialValues={formInitialValues}
+              projects={projects.filter((project) => project !== 'All Tasks')}
+              submitLabel={editingTask ? 'Save changes' : 'Add task'}
+              onSubmit={saveTask}
+              onCancel={closeForm}
+            />
           )}
 
           <TaskStats />
@@ -327,6 +352,7 @@ function App() {
           {deletedTask && (
             <div className="undo-banner" role="status">
               <span>Task deleted · </span>
+
               <button
                 type="button"
                 className="undo-button"
@@ -340,11 +366,11 @@ function App() {
           <TaskList
             tasks={visibleTasks}
             onToggle={toggleTask}
-            onAddTask={() => setShowForm(true)}
+            onAddTask={openAddForm}
             onDeleteTask={deleteTask}
+            onEditTask={openEditForm}
             selectedId={selectedId}
           />
-
         </Section>
 
         <Footer />

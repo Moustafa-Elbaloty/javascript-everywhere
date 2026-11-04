@@ -1399,3 +1399,50 @@ a {
 .character-counter.over-limit {
   color: #dc2626;
 }
+
+/* Module 04 - Task Filters and Sorting */
+
+.task-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.task-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.sort-control select {
+  padding: 9px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  color: #334155;
+  font: inherit;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .sort-control {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .sort-control select {
+    flex: 1;
+  }
+}
