@@ -152,6 +152,22 @@ function App() {
     setEditingTask(null)
   }
 
+  function addTask(values: TaskFormValues) {
+    const taskValues = fromFormValues(values)
+
+    setTasks((current) => {
+      const nextId =
+        current.reduce((maxId, task) => Math.max(maxId, task.id), 0) + 1
+
+      const newTask: Task = {
+        id: nextId,
+        ...taskValues,
+      }
+
+      return [newTask, ...current]
+    })
+  }
+
   function saveTask(values: TaskFormValues) {
     const taskValues = fromFormValues(values)
 
@@ -164,15 +180,21 @@ function App() {
         ),
       )
     } else {
-      const newTask: Task = {
-        id: Date.now(),
-        ...taskValues,
-      }
-
-      setTasks((current) => [newTask, ...current])
+      addTask(values)
     }
 
     closeForm()
+  }
+
+  function duplicateTask(task: Task) {
+    addTask({
+      title: `Copy of ${task.title}`,
+      description: task.description,
+      project: task.project,
+      priority: task.priority ?? 'medium',
+      status: 'Todo',
+      dueDate: task.dueDate,
+    })
   }
 
   function toggleTask(id: number) {
@@ -399,6 +421,7 @@ function App() {
             onAddTask={openAddForm}
             onDeleteTask={deleteTask}
             onEditTask={openEditForm}
+            onDuplicateTask={duplicateTask}
             selectedId={selectedId}
           />
         </Section>

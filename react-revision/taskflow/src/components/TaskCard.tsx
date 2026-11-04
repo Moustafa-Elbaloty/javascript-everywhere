@@ -1,18 +1,7 @@
 import Badge from './Badge'
+import type { Task, TaskStatus } from '../types/task'
 
-export type Priority = 'low' | 'medium' | 'high'
-
-export type TaskStatus = 'Todo' | 'In Progress' | 'Done'
-
-export interface Task {
-  id: number
-  title: string
-  description: string
-  project: string
-  priority?: Priority
-  status: TaskStatus
-  dueDate: string
-}
+export type { Priority, TaskStatus, Task } from '../types/task'
 
 export function nextStatus(status: TaskStatus): TaskStatus {
   switch (status) {
@@ -31,6 +20,8 @@ interface TaskCardProps {
   task: Task
   onToggle: (id: number) => void
   onDelete: (id: number) => void
+  onEdit: (task: Task) => void
+  onDuplicate: (task: Task) => void
   isSelected: boolean
 }
 
@@ -38,10 +29,25 @@ function TaskCard({
   task,
   onToggle,
   onDelete,
+  onEdit,
+  onDuplicate,
   isSelected,
 }: TaskCardProps) {
   const next = nextStatus(task.status)
   const nextLabel = next === 'Todo' ? 'To Do' : next
+
+  function formatDueDate(date: string) {
+    if (!date) return 'No date'
+
+    const parsedDate = new Date(`${date}T00:00:00`)
+
+    if (Number.isNaN(parsedDate.getTime())) return date
+
+    return parsedDate.toLocaleDateString('en-US', {
+      month: 'short',
+      day: '2-digit',
+    })
+  }
 
   return (
     <article className={`task-card ${isSelected ? 'selected' : ''}`}>
@@ -83,7 +89,7 @@ function TaskCard({
 
         <div className="task-meta">
           <span className="project-tag">{task.project}</span>
-          <span className="due-date">◷ {task.dueDate}</span>
+          <span className="due-date">◷ {formatDueDate(task.dueDate)}</span>
         </div>
       </div>
 
@@ -95,13 +101,31 @@ function TaskCard({
         {task.status}
       </span>
 
-      <button
-        type="button"
-        className="task-delete"
-        onClick={() => onDelete(task.id)}
-      >
-        Delete
-      </button>
+      <div className="task-actions">
+        <button
+          type="button"
+          className="secondary-button task-edit"
+          onClick={() => onEdit(task)}
+        >
+          Edit
+        </button>
+
+        <button
+          type="button"
+          className="secondary-button task-duplicate"
+          onClick={() => onDuplicate(task)}
+        >
+          Duplicate
+        </button>
+
+        <button
+          type="button"
+          className="task-delete"
+          onClick={() => onDelete(task.id)}
+        >
+          Delete
+        </button>
+      </div>
     </article>
   )
 }

@@ -1,10 +1,13 @@
-import TaskCard, { type Task } from './TaskCard'
+import TaskCard from './TaskCard'
+import type { Task } from '../types/task'
 
 interface TaskListProps {
   tasks: Task[]
   onToggle: (id: number) => void
   onAddTask: () => void
   onDeleteTask: (id: number) => void
+  onEditTask: (task: Task) => void
+  onDuplicateTask: (task: Task) => void
   selectedId: number | null
 }
 
@@ -13,9 +16,10 @@ function TaskList({
   onToggle,
   onAddTask,
   onDeleteTask,
+  onEditTask,
+  onDuplicateTask,
   selectedId,
 }: TaskListProps) {
-
   return (
     <div className="task-list">
       {tasks.map((task) => (
@@ -24,6 +28,8 @@ function TaskList({
           task={task}
           onToggle={onToggle}
           onDelete={onDeleteTask}
+          onEdit={onEditTask}
+          onDuplicate={onDuplicateTask}
           isSelected={selectedId === task.id}
         />
       ))}
@@ -34,7 +40,11 @@ function TaskList({
           <h3>Nothing on your plate</h3>
           <p>Try another filter or add a new task.</p>
 
-          <button className="primary-button" onClick={onAddTask}>
+          <button
+            type="button"
+            className="primary-button"
+            onClick={onAddTask}
+          >
             Add a task
           </button>
         </div>
@@ -44,4 +54,3 @@ function TaskList({
 }
 
 export default TaskList
-
