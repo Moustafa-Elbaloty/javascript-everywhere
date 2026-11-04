@@ -1327,13 +1327,11 @@ a {
   }
 }
 
-
 /* Module 03 Challenge - Selected task */
 .task-card.selected {
   border-color: #8298bd;
   box-shadow: 0 0 0 2px rgba(130, 152, 189, 0.2);
 }
-
 
 /* Module 03 - Toolbar buttons */
 .sort-button,
@@ -1346,8 +1344,7 @@ a {
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease,
-    transform 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .sort-button {
@@ -1385,4 +1382,20 @@ a {
 .select-next-button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+.form-error {
+  margin: 6px 0 0;
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+.character-counter {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.character-counter.over-limit {
+  color: #dc2626;
 }
