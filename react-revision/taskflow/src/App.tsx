@@ -14,6 +14,7 @@ import TaskFilters, {
   type StatusFilter,
 } from './components/TaskFilters'
 
+import useLocalStorage from './hooks/useLocalStorage'
 import type { Task, TaskFormValues } from './types/task'
 import { fromFormValues, toFormValues } from './utils/taskForm'
 
@@ -73,9 +74,15 @@ const emptyTaskValues: TaskFormValues = {
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>(initialTasks)
+
   const [activeProject, setActiveProject] = useState('All Tasks')
-  const [activeFilter, setActiveFilter] = useState<StatusFilter>('All')
-  const [search, setSearch] = useState('')
+
+  const [activeFilter, setActiveFilter] =
+    useLocalStorage<StatusFilter>('taskflow-status-filter', 'All')
+
+  const [search, setSearch] =
+    useLocalStorage<string>('taskflow-search', '')
+
   const [showForm, setShowForm] = useState(false)
   const [editingTask, setEditingTask] = useState<Task | null>(null)
   const [deletedTask, setDeletedTask] = useState<Task | null>(null)
