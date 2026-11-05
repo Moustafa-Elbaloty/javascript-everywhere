@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 import Footer from './components/Footer'
@@ -88,6 +88,37 @@ function App() {
   const [deletedTask, setDeletedTask] = useState<Task | null>(null)
   const [sortMode, setSortMode] = useState<SortOption>('default')
   const [selectedId, setSelectedId] = useState<number | null>(null)
+
+  const searchInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    function handleSearchShortcut(event: KeyboardEvent) {
+      if (event.key !== '/') {
+        return
+      }
+
+      const target = event.target
+
+      if (target instanceof HTMLElement) {
+        const isTyping =
+          target.matches('input, textarea, select') ||
+          target.isContentEditable
+
+        if (isTyping) {
+          return
+        }
+      }
+
+      event.preventDefault()
+      searchInputRef.current?.focus()
+    }
+
+    window.addEventListener('keydown', handleSearchShortcut)
+
+    return () => {
+      window.removeEventListener('keydown', handleSearchShortcut)
+    }
+  }, [])
 
   const completedTasks = tasks.filter(
     (task) => task.status === 'Done',
@@ -353,11 +384,13 @@ function App() {
               <span aria-hidden="true">⌕</span>
 
               <input
+                ref={searchInputRef}
                 type="search"
-                placeholder="Search tasks..."
+                placeholder="Search tasks... (Press /)"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 aria-label="Search tasks"
+                aria-keyshortcuts="/"
               />
             </label>
 

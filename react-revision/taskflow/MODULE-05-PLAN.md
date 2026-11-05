@@ -13,3 +13,9 @@ once when the component initializes and returns a useState-style setter.
 
 An effect will update localStorage whenever the value changes. App will
 use two separate keys for the search text and the status filter.
+
+## Task 3 — Search shortcut
+
+I will keep a ref to the search input and listen for the slash key
+with useEffect. The handler will ignore typing fields, focus the search
+input otherwise, and remove its listener during cleanup.
