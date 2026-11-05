@@ -1,15 +1,26 @@
 # TaskFlow
 
-TaskFlow is a simple task management dashboard built with React and TypeScript. I created this project as part of Module 01 to practice working with React components and responsive layouts.
+TaskFlow is a task management dashboard built with React, TypeScript, and Vite.
+
+This project is part of my JavaScript Everywhere learning journey. Each module adds new React concepts and features while improving the existing application.
 
 ## Features
 
-- View tasks and their current status.
-- Filter tasks by project.
-- Add and manage tasks.
-- View task statistics.
-- Navigate between different projects.
-- Responsive layout for mobile, tablet, and desktop.
+- View and organize tasks by project.
+- Add, edit, delete, and duplicate tasks.
+- Undo the last deleted task.
+- Change task status: Todo, In Progress, and Done.
+- Filter tasks by project and status.
+- Search tasks by title.
+- Sort tasks by title or due date.
+- Select the next task.
+- Track progress and completion statistics.
+- Validate task forms.
+- Remember search and status filters using Local Storage.
+- Focus the search field using the `/` keyboard shortcut.
+- Debounced search with a 300ms delay.
+- Display task counts grouped by status.
+- Update the browser tab title based on open tasks.
 
 ## Technologies
 
@@ -17,6 +28,7 @@ TaskFlow is a simple task management dashboard built with React and TypeScript. 
 - TypeScript
 - Vite
 - CSS
+- Browser Local Storage
 
 ## Getting Started
 
@@ -24,90 +36,128 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/Moustafa-Elbaloty/javascript-everywhere.git
-```
-
-Go to the project folder:
-
-```bash
 cd javascript-everywhere/react-revision/taskflow
-```
-
-Install the dependencies:
-
-```bash
 npm install
-```
+npm run dev
+npm run build
+cat > README.md <<'EOF'
+# TaskFlow
+
+A task management dashboard built with React, TypeScript, and Vite.
+
+This project is part of my JavaScript Everywhere learning journey.
+
+## Features
+
+- View and organize tasks by project.
+- Add, edit, delete, and duplicate tasks.
+- Undo task deletion.
+- Change task status.
+- Filter tasks by project and status.
+- Search and sort tasks.
+- Select the next task.
+- Track task progress and statistics.
+- Validate task forms.
+- Persist search and status filters using Local Storage.
+- Focus search using the `/` keyboard shortcut.
+- Debounced search with a 300ms delay.
+- Count tasks by status.
+- Update the browser tab title based on open tasks.
+
+## Technologies
+
+- React
+- TypeScript
+- Vite
+- CSS
+- Local Storage
+
+## Getting Started
+
+Clone the repository:
+
+    git clone https://github.com/Moustafa-Elbaloty/javascript-everywhere.git
+
+Navigate to the project:
+
+    cd javascript-everywhere/react-revision/taskflow
+
+Install dependencies:
+
+    npm install
 
 Start the development server:
 
-```bash
-npm run dev
-```
+    npm run dev
 
-## Build
+## Production Build
 
-To create a production build:
+    npm run build
 
-```bash
-npm run build
-```
+## Learning Progress
+
+### Module 01 — React Fundamentals
+- Set up the React environment.
+- Built the initial TaskFlow interface.
+- Practiced components and responsive layouts.
+
+### Module 02 — Components & TypeScript
+- Added TypeScript types and interfaces.
+- Created reusable components with typed props.
+- Practiced ReactNode and optional props.
+
+### Module 03 — State & Events
+- Managed tasks with React state.
+- Added status updates and progress calculations.
+- Implemented delete and undo functionality.
+- Added sorting and task selection.
+
+### Module 04 — Forms & Task Management
+- Built reusable forms for adding and editing tasks.
+- Added form validation.
+- Implemented search, filtering, and sorting.
+- Added task duplication.
+
+### Module 05 — Custom Hooks & Reusable Logic
+- Created useDocumentTitle.
+- Created generic useLocalStorage.
+- Added the `/` keyboard shortcut using useRef and useEffect.
+- Implemented event listener cleanup.
+- Created the generic countBy utility.
+- Created the generic useDebouncedValue hook.
+- Added 300ms debounced search.
+- Reflected on StrictMode, lazy state initialization, and useMemo.
 
 ## Screenshots
 
-### Mobile — 375px
+### Responsive Layouts
 
-![Mobile Screenshot](./screenshots/375.jpg)
+![Mobile](./screenshots/375.jpg)
 
-### Tablet — 768px
+![Tablet](./screenshots/768.jpg)
 
-![Tablet Screenshot](./screenshots/768.jpg)
+![Desktop](./screenshots/1280.jpg)
 
-### Desktop — 1280px
+### Module 02
 
-![Desktop Screenshot](./screenshots/1280.jpg)
+![Module 02 Desktop](./screenshots/module-02-desktop.jpg)
 
-## Module 02 — Components & TypeScript
+![Module 02 Mobile](./screenshots/module-02-mobile.jpg)
 
-This module extends TaskFlow with TypeScript types and reusable React components.
-
-### What I learned
-
-- Added an optional Priority type for tasks.
-- Created a reusable Badge component with typed props.
-- Added a Sidebar component with a SidebarProps interface.
-- Added an optional action prop to the Section component.
-- Used ReactNode for children and optional component content.
-- Practiced typed event handlers with the TaskCard delete challenge.
-
-### Components
-
-- Badge
-- Sidebar
-- Section
-- TaskCard
-- TaskList
-
-
-## Module 03 — State & Events
-
-This module makes the TaskFlow task list more interactive using React state and immutable updates.
-
-### What I learned
-
-- Added a three-step task status cycle: To Do, In Progress, and Done.
-- Calculated task progress and completion percentage from existing state.
-- Added the ability to undo the last deleted task.
-- Added sorting by title without mutating the original tasks array.
-- Used conditional rendering for the Undo message.
-- Practised state updates with map, filter, and spread syntax.
-
-### Challenge
-
-- Added a Select next button to move the selection between tasks.
-- The selection returns to the first task after reaching the last one.
-
-### Module 03 Screenshots
+### Module 03
 
 ![Module 03 Desktop](./screenshots/module-03-desktop.jpg)
 
 ![Module 03 Mobile](./screenshots/module-03-mobile.jpg)
+
+### Module 04
+
+![Module 04 Desktop](./screenshots/module-04-desktop.jpg)
+
+![Module 04 Mobile](./screenshots/module-04-mobile.jpg)
+
+### Module 05 — Custom Hooks & Reusable Logic
+
+![Module 05 Desktop](./screenshots/module-05-desktop.jpg)
+
+![Module 05 Mobile](./screenshots/module-05-mobile.jpg)

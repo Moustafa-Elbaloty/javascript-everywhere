@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 import Footer from './components/Footer'
@@ -14,6 +14,9 @@ import TaskFilters, {
   type StatusFilter,
 } from './components/TaskFilters'
 
+import useLocalStorage from './hooks/useLocalStorage'
+import useDebouncedValue from './hooks/useDebouncedValue'
+import countBy from './utils/countBy'
 import type { Task, TaskFormValues } from './types/task'
 import { fromFormValues, toFormValues } from './utils/taskForm'
 
@@ -73,14 +76,55 @@ const emptyTaskValues: TaskFormValues = {
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>(initialTasks)
+
   const [activeProject, setActiveProject] = useState('All Tasks')
-  const [activeFilter, setActiveFilter] = useState<StatusFilter>('All')
-  const [search, setSearch] = useState('')
+
+  const [activeFilter, setActiveFilter] =
+    useLocalStorage<StatusFilter>('taskflow-status-filter', 'All')
+
+  const [search, setSearch] =
+    useLocalStorage<string>('taskflow-search', '')
+
+  const debouncedSearch = useDebouncedValue(search, 300)
+
   const [showForm, setShowForm] = useState(false)
   const [editingTask, setEditingTask] = useState<Task | null>(null)
   const [deletedTask, setDeletedTask] = useState<Task | null>(null)
   const [sortMode, setSortMode] = useState<SortOption>('default')
   const [selectedId, setSelectedId] = useState<number | null>(null)
+
+  const statusCounts = countBy(tasks, (task) => task.status)
+
+  const searchInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    function handleSearchShortcut(event: KeyboardEvent) {
+      if (event.key !== '/') {
+        return
+      }
+
+      const target = event.target
+
+      if (target instanceof HTMLElement) {
+        const isTyping =
+          target.matches('input, textarea, select') ||
+          target.isContentEditable
+
+        if (isTyping) {
+          return
+        }
+      }
+
+      event.preventDefault()
+      searchInputRef.current?.focus()
+    }
+
+    window.addEventListener('keydown', handleSearchShortcut)
+
+    return () => {
+      window.removeEventListener('keydown', handleSearchShortcut)
+    }
+  }, [])
 
   const completedTasks = tasks.filter(
     (task) => task.status === 'Done',
@@ -119,7 +163,7 @@ function App() {
 
     const matchesSearch = task.title
       .toLowerCase()
-      .includes(search.trim().toLowerCase())
+      .includes(debouncedSearch.trim().toLowerCase())
 
     return matchesProject && matchesFilter && matchesSearch
   })
@@ -337,6 +381,14 @@ function App() {
           title="Tasks"
           action={<Badge tone="neutral">{tasks.length} tasks</Badge>}
         >
+          <div className="status-counts" aria-label="Task counts by status">
+            <Badge tone="neutral">Todo: {statusCounts['Todo'] ?? 0}</Badge>
+            <Badge tone="neutral">
+              In Progress: {statusCounts['In Progress'] ?? 0}
+            </Badge>
+            <Badge tone="neutral">Done: {statusCounts['Done'] ?? 0}</Badge>
+          </div>
+
           <div className="tasks-heading">
             <div>
               <p>Manage and track your work.</p>
@@ -346,11 +398,13 @@ function App() {
               <span aria-hidden="true">⌕</span>
 
               <input
+                ref={searchInputRef}
                 type="search"
-                placeholder="Search tasks..."
+                placeholder="Search tasks... (Press /)"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 aria-label="Search tasks"
+                aria-keyshortcuts="/"
               />
             </label>
 

@@ -1533,3 +1533,11 @@ a {
     justify-content: flex-end;
   }
 }
+
+/* Module 05 - Task counts by status */
+.status-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}

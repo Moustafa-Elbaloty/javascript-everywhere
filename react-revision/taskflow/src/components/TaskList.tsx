@@ -1,5 +1,6 @@
 import TaskCard from './TaskCard'
 import type { Task } from '../types/task'
+import useDocumentTitle from '../hooks/useDocumentTitle'
 
 interface TaskListProps {
   tasks: Task[]
@@ -20,6 +21,12 @@ function TaskList({
   onDuplicateTask,
   selectedId,
 }: TaskListProps) {
+  const openTaskCount = tasks.filter(
+    (task) => task.status !== 'Done',
+  ).length
+
+  useDocumentTitle(`${openTaskCount} open tasks | TaskFlow`)
+
   return (
     <div className="task-list">
       {tasks.map((task) => (
