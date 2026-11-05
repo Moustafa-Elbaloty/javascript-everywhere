@@ -27,3 +27,11 @@ returned from a callback and counts how many items belong to each key.
 
 I will use it to calculate task counts by status and display
 the results below the Tasks section title.
+
+## Task 5 — Reflection and debounce challenge
+
+I will answer the three reflection questions using my understanding
+of React effects, lazy state initialization, and memoization.
+
+For the optional challenge, I will create a generic useDebouncedValue
+hook and use it to delay task filtering by 300 milliseconds.

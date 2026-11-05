@@ -15,6 +15,7 @@ import TaskFilters, {
 } from './components/TaskFilters'
 
 import useLocalStorage from './hooks/useLocalStorage'
+import useDebouncedValue from './hooks/useDebouncedValue'
 import countBy from './utils/countBy'
 import type { Task, TaskFormValues } from './types/task'
 import { fromFormValues, toFormValues } from './utils/taskForm'
@@ -83,6 +84,8 @@ function App() {
 
   const [search, setSearch] =
     useLocalStorage<string>('taskflow-search', '')
+
+  const debouncedSearch = useDebouncedValue(search, 300)
 
   const [showForm, setShowForm] = useState(false)
   const [editingTask, setEditingTask] = useState<Task | null>(null)
@@ -160,7 +163,7 @@ function App() {
 
     const matchesSearch = task.title
       .toLowerCase()
-      .includes(search.trim().toLowerCase())
+      .includes(debouncedSearch.trim().toLowerCase())
 
     return matchesProject && matchesFilter && matchesSearch
   })
