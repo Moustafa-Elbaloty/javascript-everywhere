@@ -19,3 +19,11 @@ use two separate keys for the search text and the status filter.
 I will keep a ref to the search input and listen for the slash key
 with useEffect. The handler will ignore typing fields, focus the search
 input otherwise, and remove its listener during cleanup.
+
+## Task 4 — Generic countBy
+
+I will create a generic countBy helper that groups items by a key
+returned from a callback and counts how many items belong to each key.
+
+I will use it to calculate task counts by status and display
+the results below the Tasks section title.

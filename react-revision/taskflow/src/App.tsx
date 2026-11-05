@@ -15,6 +15,7 @@ import TaskFilters, {
 } from './components/TaskFilters'
 
 import useLocalStorage from './hooks/useLocalStorage'
+import countBy from './utils/countBy'
 import type { Task, TaskFormValues } from './types/task'
 import { fromFormValues, toFormValues } from './utils/taskForm'
 
@@ -88,6 +89,8 @@ function App() {
   const [deletedTask, setDeletedTask] = useState<Task | null>(null)
   const [sortMode, setSortMode] = useState<SortOption>('default')
   const [selectedId, setSelectedId] = useState<number | null>(null)
+
+  const statusCounts = countBy(tasks, (task) => task.status)
 
   const searchInputRef = useRef<HTMLInputElement>(null)
 
@@ -375,6 +378,14 @@ function App() {
           title="Tasks"
           action={<Badge tone="neutral">{tasks.length} tasks</Badge>}
         >
+          <div className="status-counts" aria-label="Task counts by status">
+            <Badge tone="neutral">Todo: {statusCounts['Todo'] ?? 0}</Badge>
+            <Badge tone="neutral">
+              In Progress: {statusCounts['In Progress'] ?? 0}
+            </Badge>
+            <Badge tone="neutral">Done: {statusCounts['Done'] ?? 0}</Badge>
+          </div>
+
           <div className="tasks-heading">
             <div>
               <p>Manage and track your work.</p>
