@@ -155,3 +155,9 @@ Start the development server:
 ![Module 04 Desktop](./screenshots/module-04-desktop.jpg)
 
 ![Module 04 Mobile](./screenshots/module-04-mobile.jpg)
+
+### Module 05 — Custom Hooks & Reusable Logic
+
+![Module 05 Desktop](./screenshots/module-05-desktop.jpg)
+
+![Module 05 Mobile](./screenshots/module-05-mobile.jpg)
