@@ -1541,3 +1541,130 @@ a {
   gap: 8px;
   margin-bottom: 18px;
 }
+
+/* Module 06 - Task Details Page */
+.task-details-page {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 42px 5%;
+}
+
+.task-detail-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 20px;
+  color: #b7a2ff;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.task-detail-back-link:hover {
+  color: #d0c0ff;
+  text-decoration: underline;
+}
+
+.task-detail-content {
+  padding: 8px 0 20px;
+}
+
+.task-detail-title {
+  margin: 0 0 12px;
+  color: #eeedf5;
+  font-size: clamp(22px, 3vw, 30px);
+  letter-spacing: -0.8px;
+}
+
+.task-detail-description {
+  margin: 0 0 25px;
+  color: #a3a4b6;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.task-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.task-detail-grid > div {
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.task-detail-grid dt {
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.task-detail-grid dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.task-actions .task-details {
+  padding: 7px 10px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .task-details-page {
+    padding: 26px 14px;
+  }
+
+  .task-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Module 06 - Project Header */
+.project-progress-card {
+  max-width: 600px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--panel);
+}
+
+.project-progress-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.project-progress-heading span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.project-progress-track {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #30313d;
+}
+
+.project-progress-track > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--green);
+  transition: width 200ms ease;
+}

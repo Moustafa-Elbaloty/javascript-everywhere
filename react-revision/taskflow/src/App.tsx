@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useMatch, useNavigate, useSearchParams } from 'react-router'
 import './App.css'
 
 import Footer from './components/Footer'
@@ -8,6 +9,7 @@ import TaskList from './components/TaskList'
 import { nextStatus } from './components/TaskCard'
 import Sidebar from './components/Sidebar'
 import Badge from './components/Badge'
+import EmptyState from './components/EmptyState'
 import TaskForm from './components/TaskForm'
 import TaskFilters, {
   type SortOption,
@@ -16,6 +18,8 @@ import TaskFilters, {
 
 import useLocalStorage from './hooks/useLocalStorage'
 import useDebouncedValue from './hooks/useDebouncedValue'
+import projects from './data/projects'
+import TaskDetailsPage from './components/TaskDetailsPage'
 import countBy from './utils/countBy'
 import type { Task, TaskFormValues } from './types/task'
 import { fromFormValues, toFormValues } from './utils/taskForm'
@@ -51,18 +55,10 @@ const initialTasks: Task[] = [
     id: 4,
     title: 'Update brand guidelines',
     description: 'Finalize typography, colors, and interface guidelines.',
-    project: 'Design System',
+    project: 'Marketing',
     status: 'In Progress',
     dueDate: '2026-11-12',
   },
-]
-
-const projects = [
-  'All Tasks',
-  'Website Redesign',
-  'Mobile App',
-  'Marketing',
-  'Design System',
 ]
 
 const emptyTaskValues: TaskFormValues = {
@@ -79,11 +75,92 @@ function App() {
 
   const [activeProject, setActiveProject] = useState('All Tasks')
 
-  const [activeFilter, setActiveFilter] =
+  const navigate = useNavigate()
+  const projectRoute = useMatch('/projects/:projectId')
+  const taskDetailsRoute = useMatch('/projects/:projectId/tasks/:taskId')
+
+  const currentProjectId =
+    taskDetailsRoute?.params.projectId ?? projectRoute?.params.projectId
+
+  const routeProject = projects.find(
+    (project) => project.id === currentProjectId,
+  )
+
+  const selectedProject = routeProject?.name ?? activeProject
+
+  const projectTasks =
+    selectedProject === 'All Tasks'
+      ? []
+      : tasks.filter((task) => task.project === selectedProject)
+
+  const completedProjectTasks = projectTasks.filter(
+    (task) => task.status === 'Done',
+  ).length
+
+  const projectProgress =
+    projectTasks.length === 0
+      ? 0
+      : Math.round((completedProjectTasks / projectTasks.length) * 100)
+
+  const [storedActiveFilter, setStoredActiveFilter] =
     useLocalStorage<StatusFilter>('taskflow-status-filter', 'All')
 
-  const [search, setSearch] =
+  const [storedSearch, setStoredSearch] =
     useLocalStorage<string>('taskflow-search', '')
+
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const search = searchParams.get('search') ?? storedSearch
+
+  const statusFromUrl = searchParams.get('status')
+
+  const statusFilters: Record<string, StatusFilter> = {
+    todo: 'Todo',
+    'in-progress': 'In Progress',
+    done: 'Done',
+  }
+
+  const activeFilter =
+    (statusFromUrl ? statusFilters[statusFromUrl] : undefined) ??
+    storedActiveFilter
+
+  function setSearch(value: string) {
+    setStoredSearch(value)
+
+    setSearchParams(
+      (current) => {
+        const next = new URLSearchParams(current)
+
+        if (value) {
+          next.set('search', value)
+        } else {
+          next.delete('search')
+        }
+
+        return next
+      },
+      { replace: true },
+    )
+  }
+
+  function setActiveFilter(filter: StatusFilter) {
+    setStoredActiveFilter(filter)
+
+    setSearchParams(
+      (current) => {
+        const next = new URLSearchParams(current)
+
+        if (filter === 'All') {
+          next.delete('status')
+        } else {
+          next.set('status', filter.toLowerCase().replace(/\s+/g, '-'))
+        }
+
+        return next
+      },
+      { replace: true },
+    )
+  }
 
   const debouncedSearch = useDebouncedValue(search, 300)
 
@@ -156,7 +233,7 @@ function App() {
 
   const visibleTasks = sortedTasks.filter((task) => {
     const matchesProject =
-      activeProject === 'All Tasks' || task.project === activeProject
+      selectedProject === 'All Tasks' || task.project === selectedProject
 
     const matchesFilter =
       activeFilter === 'All' || task.status === activeFilter
@@ -172,13 +249,22 @@ function App() {
     search.trim() !== '' ||
     activeFilter !== 'All' ||
     sortMode !== 'default' ||
-    activeProject !== 'All Tasks'
+    selectedProject !== 'All Tasks'
+
+  function selectProject(projectName: string) {
+    setActiveProject(projectName)
+
+    const project = projects.find((item) => item.name === projectName)
+
+    navigate(project ? `/projects/${project.id}` : '/')
+  }
 
   function clearFilters() {
-    setSearch('')
-    setActiveFilter('All')
+    setStoredSearch('')
+    setStoredActiveFilter('All')
     setSortMode('default')
     setActiveProject('All Tasks')
+    navigate('/')
   }
 
   function openAddForm() {
@@ -293,21 +379,25 @@ function App() {
     : {
         ...emptyTaskValues,
         project:
-          activeProject === 'All Tasks' ? 'Website Redesign' : activeProject,
+          selectedProject === 'All Tasks' ? 'Website Redesign' : selectedProject,
       }
 
   return (
     <div className="app-shell">
       <Sidebar
         title="Mustafa's space"
-        projects={projects}
-        activeProject={activeProject}
+        projects={['All Tasks', ...projects.map((project) => project.name)]}
+        activeProject={selectedProject}
         taskCount={tasks.length}
-        onProjectSelect={setActiveProject}
+        onProjectSelect={selectProject}
         onAddTask={openAddForm}
       />
 
       <main className="main-content">
+        {taskDetailsRoute ? (
+          <TaskDetailsPage tasks={tasks} />
+        ) : (
+          <>
         <header className="app-header">
           <div>
             <span className="breadcrumb">Workspace / Tasks</span>
@@ -331,6 +421,44 @@ function App() {
             </div>
           </div>
         </header>
+
+        {selectedProject !== 'All Tasks' && (
+          <Section
+            title="Project overview"
+            action={
+              <Badge tone="neutral">
+                {projectTasks.length} tasks
+              </Badge>
+            }
+          >
+            <div className="project-progress-card">
+              <div className="project-progress-heading">
+                <strong>
+                  {completedProjectTasks} of {projectTasks.length} done
+                </strong>
+                <span>{projectProgress}%</span>
+              </div>
+
+              <div
+                className="project-progress-track"
+                role="progressbar"
+                aria-label="Project completion"
+                aria-valuenow={projectProgress}
+                aria-valuemin={0}
+                aria-valuemax={100}
+              >
+                <span style={{ width: `${projectProgress}%` }} />
+              </div>
+            </div>
+
+            {projectTasks.length === 0 && (
+              <EmptyState
+                title="No tasks in this project yet"
+                message={`There are no tasks in ${selectedProject}. Add one to get started.`}
+              />
+            )}
+          </Section>
+        )}
 
         <section className="welcome-section">
           <div>
@@ -446,7 +574,7 @@ function App() {
             <TaskForm
               key={editingTask ? `edit-${editingTask.id}` : 'new'}
               initialValues={formInitialValues}
-              projects={projects.filter((project) => project !== 'All Tasks')}
+              projects={projects.map((project) => project.name)}
               submitLabel={editingTask ? 'Save changes' : 'Add task'}
               onSubmit={saveTask}
               onCancel={closeForm}
@@ -481,6 +609,8 @@ function App() {
         </Section>
 
         <Footer />
+          </>
+        )}
       </main>
     </div>
   )
