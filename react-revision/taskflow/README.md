@@ -2,75 +2,35 @@
 
 TaskFlow is a task management dashboard built with React, TypeScript, and Vite.
 
-This project is part of my JavaScript Everywhere learning journey. Each module adds new React concepts and features while improving the existing application.
+This project is part of my JavaScript Everywhere learning journey. Each module introduces new React concepts and improves the application step by step.
 
 ## Features
 
 - View and organize tasks by project.
 - Add, edit, delete, and duplicate tasks.
 - Undo the last deleted task.
-- Change task status: Todo, In Progress, and Done.
-- Filter tasks by project and status.
-- Search tasks by title.
-- Sort tasks by title or due date.
-- Select the next task.
-- Track progress and completion statistics.
-- Validate task forms.
-- Remember search and status filters using Local Storage.
-- Focus the search field using the `/` keyboard shortcut.
-- Debounced search with a 300ms delay.
-- Display task counts grouped by status.
-- Update the browser tab title based on open tasks.
-
-## Technologies
-
-- React
-- TypeScript
-- Vite
-- CSS
-- Browser Local Storage
-
-## Getting Started
-
-Clone the repository:
-
-```bash
-git clone https://github.com/Moustafa-Elbaloty/javascript-everywhere.git
-cd javascript-everywhere/react-revision/taskflow
-npm install
-npm run dev
-npm run build
-cat > README.md <<'EOF'
-# TaskFlow
-
-A task management dashboard built with React, TypeScript, and Vite.
-
-This project is part of my JavaScript Everywhere learning journey.
-
-## Features
-
-- View and organize tasks by project.
-- Add, edit, delete, and duplicate tasks.
-- Undo task deletion.
 - Change task status.
 - Filter tasks by project and status.
 - Search and sort tasks.
 - Select the next task.
 - Track task progress and statistics.
 - Validate task forms.
-- Persist search and status filters using Local Storage.
+- Persist filters using Local Storage.
 - Focus search using the `/` keyboard shortcut.
 - Debounced search with a 300ms delay.
-- Count tasks by status.
-- Update the browser tab title based on open tasks.
+- Display task counts by status.
+- Navigate to task detail pages.
+- Display project task counts and progress.
+- Sync search and status filters with URL parameters.
 
 ## Technologies
 
 - React
 - TypeScript
+- React Router
 - Vite
 - CSS
-- Local Storage
+- Browser Local Storage
 
 ## Getting Started
 
@@ -90,35 +50,43 @@ Start the development server:
 
     npm run dev
 
-## Production Build
+Create a production build:
 
     npm run build
 
 ## Learning Progress
 
 ### Module 01 — React Fundamentals
-- Set up the React environment.
+
+- Set up the React development environment.
 - Built the initial TaskFlow interface.
 - Practiced components and responsive layouts.
 
 ### Module 02 — Components & TypeScript
+
 - Added TypeScript types and interfaces.
 - Created reusable components with typed props.
-- Practiced ReactNode and optional props.
+- Practiced optional props and ReactNode.
+- Built reusable Badge, Sidebar, and Section components.
 
 ### Module 03 — State & Events
-- Managed tasks with React state.
-- Added status updates and progress calculations.
+
+- Managed tasks using React state.
+- Added task status updates and progress calculations.
 - Implemented delete and undo functionality.
 - Added sorting and task selection.
+- Practiced immutable state updates.
 
 ### Module 04 — Forms & Task Management
+
 - Built reusable forms for adding and editing tasks.
 - Added form validation.
 - Implemented search, filtering, and sorting.
 - Added task duplication.
+- Improved responsive layouts.
 
 ### Module 05 — Custom Hooks & Reusable Logic
+
 - Created useDocumentTitle.
 - Created generic useLocalStorage.
 - Added the `/` keyboard shortcut using useRef and useEffect.
@@ -126,7 +94,32 @@ Start the development server:
 - Created the generic countBy utility.
 - Created the generic useDebouncedValue hook.
 - Added 300ms debounced search.
-- Reflected on StrictMode, lazy state initialization, and useMemo.
+- Practiced StrictMode, lazy state initialization, and memoization.
+
+### Module 06 — Routing & Architecture
+
+- Added React Router and task detail pages.
+- Created routes using project and task IDs.
+- Added task details with a Back to project link.
+- Displayed EmptyState for unknown task IDs.
+- Added project task counts and completion progress.
+- Added the Design System project.
+- Documented the project structure in ARCHITECTURE.md.
+- Created REFLECTION.md.
+- Used useSearchParams to sync search and status filters with the URL.
+
+## Project Architecture
+
+- `src/components/` — Reusable UI components and pages.
+- `src/data/` — Static project data.
+- `src/hooks/` — Custom React hooks.
+- `src/types/` — Shared TypeScript types.
+- `src/utils/` — Reusable helper functions.
+- `src/assets/` — Static assets.
+- `src/App.tsx` — Main application component.
+- `src/main.tsx` — Application entry point and BrowserRouter setup.
+
+See ARCHITECTURE.md for more details.
 
 ## Screenshots
 
@@ -156,8 +149,14 @@ Start the development server:
 
 ![Module 04 Mobile](./screenshots/module-04-mobile.jpg)
 
-### Module 05 — Custom Hooks & Reusable Logic
+### Module 05
 
 ![Module 05 Desktop](./screenshots/module-05-desktop.jpg)
 
 ![Module 05 Mobile](./screenshots/module-05-mobile.jpg)
+
+### Module 06
+
+![Module 06 Desktop](./screenshots/module-06-desktop.jpg)
+
+![Module 06 Mobile](./screenshots/module-06-mobile.jpg)
