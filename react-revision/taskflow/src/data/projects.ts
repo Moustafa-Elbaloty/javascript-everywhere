@@ -16,6 +16,10 @@ const projects: Project[] = [
     id: 'marketing',
     name: 'Marketing',
   },
+  {
+    id: 'design-system',
+    name: 'Design System',
+  },
 ]
 
 export function getProjectId(projectName: string): string {
