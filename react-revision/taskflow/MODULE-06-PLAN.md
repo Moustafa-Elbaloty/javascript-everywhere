@@ -19,3 +19,9 @@ I will display the count and progress inside a Section, and show EmptyState when
 I will review the current src folders and document the responsibility of each one.
 
 I will also explain where a new page component and a reusable custom hook should be added.
+
+## Task 5 — Reflection and optional challenge
+
+I will answer the three reflection questions using my understanding of reusable components and React Router.
+
+For the optional challenge, I will use useSearchParams to keep search text and the status filter in the URL while preserving the existing Local Storage behavior.

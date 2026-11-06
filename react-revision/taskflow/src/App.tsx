@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useMatch, useNavigate } from 'react-router'
+import { useMatch, useNavigate, useSearchParams } from 'react-router'
 import './App.css'
 
 import Footer from './components/Footer'
@@ -102,11 +102,65 @@ function App() {
       ? 0
       : Math.round((completedProjectTasks / projectTasks.length) * 100)
 
-  const [activeFilter, setActiveFilter] =
+  const [storedActiveFilter, setStoredActiveFilter] =
     useLocalStorage<StatusFilter>('taskflow-status-filter', 'All')
 
-  const [search, setSearch] =
+  const [storedSearch, setStoredSearch] =
     useLocalStorage<string>('taskflow-search', '')
+
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const search = searchParams.get('search') ?? storedSearch
+
+  const statusFromUrl = searchParams.get('status')
+
+  const statusFilters: Record<string, StatusFilter> = {
+    todo: 'Todo',
+    'in-progress': 'In Progress',
+    done: 'Done',
+  }
+
+  const activeFilter =
+    (statusFromUrl ? statusFilters[statusFromUrl] : undefined) ??
+    storedActiveFilter
+
+  function setSearch(value: string) {
+    setStoredSearch(value)
+
+    setSearchParams(
+      (current) => {
+        const next = new URLSearchParams(current)
+
+        if (value) {
+          next.set('search', value)
+        } else {
+          next.delete('search')
+        }
+
+        return next
+      },
+      { replace: true },
+    )
+  }
+
+  function setActiveFilter(filter: StatusFilter) {
+    setStoredActiveFilter(filter)
+
+    setSearchParams(
+      (current) => {
+        const next = new URLSearchParams(current)
+
+        if (filter === 'All') {
+          next.delete('status')
+        } else {
+          next.set('status', filter.toLowerCase().replace(/\s+/g, '-'))
+        }
+
+        return next
+      },
+      { replace: true },
+    )
+  }
 
   const debouncedSearch = useDebouncedValue(search, 300)
 
@@ -206,8 +260,8 @@ function App() {
   }
 
   function clearFilters() {
-    setSearch('')
-    setActiveFilter('All')
+    setStoredSearch('')
+    setStoredActiveFilter('All')
     setSortMode('default')
     setActiveProject('All Tasks')
     navigate('/')
