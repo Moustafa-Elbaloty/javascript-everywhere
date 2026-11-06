@@ -1628,3 +1628,43 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+/* Module 06 - Project Header */
+.project-progress-card {
+  max-width: 600px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--panel);
+}
+
+.project-progress-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.project-progress-heading span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.project-progress-track {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #30313d;
+}
+
+.project-progress-track > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--green);
+  transition: width 200ms ease;
+}

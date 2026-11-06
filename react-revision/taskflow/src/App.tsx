@@ -9,6 +9,7 @@ import TaskList from './components/TaskList'
 import { nextStatus } from './components/TaskCard'
 import Sidebar from './components/Sidebar'
 import Badge from './components/Badge'
+import EmptyState from './components/EmptyState'
 import TaskForm from './components/TaskForm'
 import TaskFilters, {
   type SortOption,
@@ -86,6 +87,20 @@ function App() {
   )
 
   const selectedProject = routeProject?.name ?? activeProject
+
+  const projectTasks =
+    selectedProject === 'All Tasks'
+      ? []
+      : tasks.filter((task) => task.project === selectedProject)
+
+  const completedProjectTasks = projectTasks.filter(
+    (task) => task.status === 'Done',
+  ).length
+
+  const projectProgress =
+    projectTasks.length === 0
+      ? 0
+      : Math.round((completedProjectTasks / projectTasks.length) * 100)
 
   const [activeFilter, setActiveFilter] =
     useLocalStorage<StatusFilter>('taskflow-status-filter', 'All')
@@ -352,6 +367,44 @@ function App() {
             </div>
           </div>
         </header>
+
+        {selectedProject !== 'All Tasks' && (
+          <Section
+            title="Project overview"
+            action={
+              <Badge tone="neutral">
+                {projectTasks.length} tasks
+              </Badge>
+            }
+          >
+            <div className="project-progress-card">
+              <div className="project-progress-heading">
+                <strong>
+                  {completedProjectTasks} of {projectTasks.length} done
+                </strong>
+                <span>{projectProgress}%</span>
+              </div>
+
+              <div
+                className="project-progress-track"
+                role="progressbar"
+                aria-label="Project completion"
+                aria-valuenow={projectProgress}
+                aria-valuemin={0}
+                aria-valuemax={100}
+              >
+                <span style={{ width: `${projectProgress}%` }} />
+              </div>
+            </div>
+
+            {projectTasks.length === 0 && (
+              <EmptyState
+                title="No tasks in this project yet"
+                message={`There are no tasks in ${selectedProject}. Add one to get started.`}
+              />
+            )}
+          </Section>
+        )}
 
         <section className="welcome-section">
           <div>
