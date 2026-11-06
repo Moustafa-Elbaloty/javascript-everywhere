@@ -1,4 +1,5 @@
 import TaskCard from './TaskCard'
+import EmptyState from './EmptyState'
 import type { Task } from '../types/task'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
@@ -42,19 +43,19 @@ function TaskList({
       ))}
 
       {tasks.length === 0 && (
-        <div className="empty-state">
-          <span>✳</span>
-          <h3>Nothing on your plate</h3>
-          <p>Try another filter or add a new task.</p>
-
-          <button
-            type="button"
-            className="primary-button"
-            onClick={onAddTask}
-          >
-            Add a task
-          </button>
-        </div>
+        <EmptyState
+          title="Nothing on your plate"
+          message="Try another filter or add a new task."
+          action={
+            <button
+              type="button"
+              className="primary-button"
+              onClick={onAddTask}
+            >
+              Add a task
+            </button>
+          }
+        />
       )}
     </div>
   )

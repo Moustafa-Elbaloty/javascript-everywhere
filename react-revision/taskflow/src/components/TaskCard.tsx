@@ -1,4 +1,6 @@
 import Badge from './Badge'
+import { useNavigate } from 'react-router'
+import { getProjectId } from '../data/projects'
 import type { Task, TaskStatus } from '../types/task'
 
 export type { Priority, TaskStatus, Task } from '../types/task'
@@ -33,6 +35,7 @@ function TaskCard({
   onDuplicate,
   isSelected,
 }: TaskCardProps) {
+  const navigate = useNavigate()
   const next = nextStatus(task.status)
   const nextLabel = next === 'Todo' ? 'To Do' : next
 
@@ -102,6 +105,16 @@ function TaskCard({
       </span>
 
       <div className="task-actions">
+        <button
+          type="button"
+          className="secondary-button task-details"
+          onClick={() =>
+            navigate(`/projects/${getProjectId(task.project)}/tasks/${task.id}`)
+          }
+        >
+          Details
+        </button>
+
         <button
           type="button"
           className="secondary-button task-edit"
