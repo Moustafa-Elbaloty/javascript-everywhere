@@ -13,3 +13,9 @@ Unknown task IDs will display a reusable EmptyState component.
 I will calculate the total and completed tasks for the selected project directly from the tasks array.
 
 I will display the count and progress inside a Section, and show EmptyState when the project has no tasks.
+
+## Task 4 — Folder review
+
+I will review the current src folders and document the responsibility of each one.
+
+I will also explain where a new page component and a reusable custom hook should be added.
